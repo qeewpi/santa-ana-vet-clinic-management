@@ -1,5 +1,6 @@
 package com.manila.savcmbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
@@ -54,6 +55,7 @@ public class User {
 
     // Relationship to Client
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Client client;
 
     // Relationship to Veterinarian

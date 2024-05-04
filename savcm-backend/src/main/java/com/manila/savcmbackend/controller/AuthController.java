@@ -125,18 +125,22 @@ public class AuthController {
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
-
-                        // If the role is ROLE_USER, create a new Client object
-                        Client client = new Client();
-                        client.setAddress(signUpRequest.getAddress()); // This will be null if address is not provided
-                        client.setUser(user);
-                        clientRepository.save(client);
                 }
             });
         }
 
         user.setRoles(roles);
         userRepository.save(user);
+
+        userRepository.flush(); // Flush the User entity to the database so that the ID is generated
+
+        // If the role is ROLE_USER, create a new Client
+        if (strRoles.contains("user")) {
+            Client client = new Client();
+            client.setAddress(signUpRequest.getAddress()); // This will be null if address is not provided
+            client.setUser(user);
+            clientRepository.save(client);
+        }
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
