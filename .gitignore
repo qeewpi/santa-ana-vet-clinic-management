@@ -1,0 +1,61 @@
+# Logs
+savcm-frontend/logs
+savcm-frontend/*.log
+savcm-frontend/npm-debug.log*
+savcm-frontend/yarn-debug.log*
+savcm-frontend/yarn-error.log*
+savcm-frontend/pnpm-debug.log*
+savcm-frontend/lerna-debug.log*
+
+savcm-frontend/node_modules
+savcm-frontend/dist
+savcm-frontend/dist-ssr
+savcm-frontend/*.local
+
+# Editor directories and files
+savcm-frontend/.vscode/*
+!savcm-frontend/.vscode/extensions.json
+savcm-frontend/.idea
+savcm-frontend/.DS_Store
+savcm-frontend/*.suo
+savcm-frontend/*.ntvs*
+savcm-frontend/*.njsproj
+savcm-frontend/*.sln
+savcm-frontend/*.sw?
+
+# HELP.md
+savcm-backend/HELP.md
+
+# target/
+savcm-backend/target/
+!savcm-backend/.mvn/wrapper/maven-wrapper.jar
+!savcm-backend/**/src/main/**/target/
+!savcm-backend/**/src/test/**/target/
+
+### STS ###
+savcm-backend/.apt_generated
+savcm-backend/.classpath
+savcm-backend/.factorypath
+savcm-backend/.project
+savcm-backend/.settings
+savcm-backend/.springBeans
+savcm-backend/.sts4-cache
+
+### IntelliJ IDEA ###
+savcm-backend/.idea
+savcm-backend/*.iws
+savcm-backend/*.iml
+savcm-backend/*.ipr
+
+### NetBeans ###
+savcm-backend/nbproject/private/
+savcm-backend/nbbuild/
+savcm-backend/dist/
+savcm-backend/nbdist/
+savcm-backend/.nb-gradle/
+savcm-backend/build/
+!savcm-backend/**/src/main/**/build/
+!savcm-backend/**/src/test/**/build/
+
+### VS Code ###
+savcm-backend/.vscode/
