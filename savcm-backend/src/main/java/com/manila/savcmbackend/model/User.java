@@ -60,6 +60,7 @@ public class User {
 
     // Relationship to Veterinarian
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Veterinarian veterinarian;
 
     public User(String username, String email, String firstName, String lastName, String password) {

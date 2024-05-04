@@ -1,5 +1,6 @@
 package com.manila.savcmbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,10 +17,10 @@ public class Veterinarian {
     private Long id;
 
     private String specialization;
-    private Integer yearsOfExperience;
 
     // Relationship to User
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 }

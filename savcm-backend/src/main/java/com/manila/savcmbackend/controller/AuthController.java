@@ -5,10 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.manila.savcmbackend.model.Client;
-import com.manila.savcmbackend.model.ERole;
-import com.manila.savcmbackend.model.Role;
-import com.manila.savcmbackend.model.User;
+import com.manila.savcmbackend.model.*;
 import com.manila.savcmbackend.payload.request.LoginRequest;
 import com.manila.savcmbackend.payload.request.SignupRequest;
 import com.manila.savcmbackend.payload.response.JwtResponse;
@@ -16,6 +13,7 @@ import com.manila.savcmbackend.payload.response.MessageResponse;
 import com.manila.savcmbackend.repository.ClientRepository;
 import com.manila.savcmbackend.repository.RoleRepository;
 import com.manila.savcmbackend.repository.UserRepository;
+import com.manila.savcmbackend.repository.VeterinarianRepository;
 import com.manila.savcmbackend.security.jwt.JwtUtils;
 import com.manila.savcmbackend.services.UserDetailsImpl;
 import jakarta.validation.Valid;
@@ -48,6 +46,9 @@ public class AuthController {
 
     @Autowired
     ClientRepository clientRepository;
+
+    @Autowired
+    VeterinarianRepository veterinarianRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -140,6 +141,14 @@ public class AuthController {
             client.setAddress(signUpRequest.getAddress()); // This will be null if address is not provided
             client.setUser(user);
             clientRepository.save(client);
+        }
+
+        // If the role is ROLE_VETERINARIAN, create a new Veterinarian
+        if (strRoles.contains("veterinarian")) {
+            Veterinarian veterinarian = new Veterinarian();
+            veterinarian.setSpecialization(signUpRequest.getSpecialization()); // This will be null if specialization is not provided
+            veterinarian.setUser(user);
+            veterinarianRepository.save(veterinarian);
         }
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
