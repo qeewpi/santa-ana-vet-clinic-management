@@ -30,4 +30,6 @@ public class SignupRequest {
     @Size(max = 50)
     private String lastName;
 
+    private String address;
+
 }
