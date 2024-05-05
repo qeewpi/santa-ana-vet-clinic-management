@@ -1,4 +1,7 @@
+import Logo from "@/components/ui/logo";
 import React from "react";
+import { ModeToggle } from "../../components/ui/toggle-mode";
+import { SignUpForm } from "./SignUpForm";
 
 function LeftSide() {
   return (
