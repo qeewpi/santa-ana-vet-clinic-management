@@ -4,12 +4,12 @@ import Logo from "./ui/logo";
 
 function Footer() {
   return (
-    <div className="flex flex-col items-start text-sm">
+    <div className="flex flex-col items-start text-sm pb-8">
       <div className="logo-container w-1/2">
         <Logo />
       </div>
 
-      <div className="grid grid-cols-2 w-full pt-10 text-start gap-x-4 ">
+      <div className="flex flex-col gap-y-4 sm:grid sm:grid-cols-2 w-full pt-10 text-start gap-x-4">
         <div className="footer-column flex flex-col gap-4">
           <h2 className="text-muted-foreground">Contact Details</h2>
           <ul className="flex flex-col gap-4">
