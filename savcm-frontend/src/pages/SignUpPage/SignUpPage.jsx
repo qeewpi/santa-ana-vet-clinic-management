@@ -4,8 +4,10 @@ import RightSide from "./RightSide";
 
 function SignUpPage() {
   return (
-    <div className="grid grid-cols-2 min-h-screen">
-      <LeftSide />
+    <div className="lg:grid lg:grid-cols-2 min-h-screen">
+      <div className="hidden lg:block">
+        <LeftSide />
+      </div>
       <RightSide />
     </div>
   );
