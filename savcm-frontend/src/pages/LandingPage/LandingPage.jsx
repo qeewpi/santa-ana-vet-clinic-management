@@ -9,7 +9,7 @@ function LandingPage() {
   const theme = useTheme();
 
   return (
-    <div className="">
+    <div className="container">
       <div className="relative -m-[2rem]">
         {theme.theme === "light" ? (
           <div className="absolute top-0 -z-10 h-full w-full bg-white">
@@ -21,12 +21,12 @@ function LandingPage() {
         <div className="p-[2rem]">
           <LandingPageNavBar />
         </div>
-        <div className="container pt-20 pb-48">
+        <div className="container pt-20 pb-32 md:pb-48">
           <Hero />
         </div>
       </div>
-      <div className="-mx-[2rem] bg-white dark:bg-black">
-        <div className="container py-16">
+      <div className="-mx-[24rem] px-[24rem] bg-white dark:bg-black">
+        <div className=" py-16">
           <Features />
         </div>
       </div>
