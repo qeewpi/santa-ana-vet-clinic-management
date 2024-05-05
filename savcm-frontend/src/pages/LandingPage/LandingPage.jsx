@@ -16,7 +16,7 @@ function LandingPage() {
             <div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-amber-500 opacity-20 blur-[100px]"></div>
           </div>
         ) : (
-          <div className="absolute inset-0 bg-amber-500 bg-[size:20px_20px] opacity-5 blur-[100px]"></div>
+          <div className="absolute inset-0 bg-amber-500 bg-[size:20px_20px] opacity-5 blur-[100px] -z-10"></div>
         )}
         <div className="p-[2rem]">
           <LandingPageNavBar />
