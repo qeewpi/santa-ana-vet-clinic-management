@@ -38,7 +38,7 @@ function LandingPage() {
         ) : (
           <div className="absolute inset-0 bg-red-400 bg-[size:20px_20px] opacity-10 blur-[100px]"></div>
         )}
-        <div className="container pb-32">
+        <div className="container pb-40">
           <AboutUs />
         </div>
       </div>
