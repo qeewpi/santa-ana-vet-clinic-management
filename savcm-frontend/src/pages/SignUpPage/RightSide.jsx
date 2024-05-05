@@ -4,7 +4,7 @@ import catAndDogImage from "../../assets/images/cats-and-dogs.png";
 function RightSide() {
   return (
     <div className="p-20">
-      <div className="bg-teal-100 p-20 rounded-lg shadow-md">
+      <div className="p-20 rounded-lg shadow-md">
       <h1 className="text-2xl font-bold text-center">Simplify Your Pet Care Experience with Our App</h1>
       <p className="text-lg mb-4">
         Take the stress out of caring for your furry friend with our all-in-one pet care app.
