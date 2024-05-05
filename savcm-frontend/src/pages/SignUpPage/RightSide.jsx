@@ -11,7 +11,7 @@ function RightSide() {
       </p>
       <div className="pr-36 pl-36">
         <div className="benefit">
-          <div className="icon flex justify-center items-center mb-4">
+          <div className="icon flex justify-center items-center mb-4 p-10">
             <svg
               className="h-12 w-12 text-orange-500"
               viewBox="0 0 24 24"
