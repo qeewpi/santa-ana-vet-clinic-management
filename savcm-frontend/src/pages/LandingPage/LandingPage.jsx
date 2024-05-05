@@ -30,7 +30,7 @@ function LandingPage() {
           <Features />
         </div>
       </div>
-      <div className="pt-40 relative -m-[2rem]">
+      <div className="pt-40 relative -mx-[24rem] px-[24rem]">
         {theme.theme === "light" ? (
           <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,rgba(240,240,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(240,240,240,0.5)_1px,transparent_1px)] bg-[size:6rem_4rem]">
             <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,rgba(209,95,60,0.5),transparent)]"></div>
