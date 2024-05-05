@@ -5,38 +5,35 @@ function RightSide() {
   return (
     <div className="p-20">
       <div className="p-20 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-center">
-          Simplify Your Pet Care Experience with Our App
-        </h1>
-        <p className="text-lg mb-4">
-          Take the stress out of caring for your furry friend with our
-          all-in-one pet care app.
-        </p>
-        <div className="pr-36 pl-36">
-          <div className="benefit">
-            <div className="icon flex justify-center items-center mb-4 p-10">
-              <svg
-                className="h-12 w-12 text-orange-500"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 8v3a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V8L5.64 11.36a1 1 0 1 1-1.42-1.42L12 4l4.64 4.64a1 1 0 0 1-1.42 1.42z"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M3 11a8 8 0 1 1 16 0 8 8 0 0 1-16 0z"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
+      <h1 className="text-2xl font-bold text-center">Simplify Your Pet Care Experience with Our App</h1>
+      <p className="text-lg mb-4">
+        Take the stress out of caring for your furry friend with our all-in-one pet care app.
+      </p>
+      <div className="pr-36 pl-36">
+        <div className="benefit">
+          <div className="icon flex justify-center items-center mb-4">
+            <svg
+              className="h-12 w-12 text-orange-500"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16 8v3a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V8L5.64 11.36a1 1 0 1 1-1.42-1.42L12 4l4.64 4.64a1 1 0 0 1-1.42 1.42z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M3 11a8 8 0 1 1 16 0 8 8 0 0 1-16 0z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
             <div className=" mb-4 bg-white rounded-2xl p-10">
               <p className="text-gray-700 text-base font-semibold leading-relaxed">
                 Easy Appointment Scheduling: Schedule vet visits, grooming
