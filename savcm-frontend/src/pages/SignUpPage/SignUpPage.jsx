@@ -4,7 +4,7 @@ import RightSide from "./RightSide";
 
 function SignUpPage() {
   return (
-    <div className="lg:grid lg:grid-cols-2 min-h-screen">
+    <div className="max-w-screen -m-[2rem] lg:grid lg:grid-cols-2 min-h-screen">
       <div className="hidden lg:block">
         <LeftSide />
       </div>
