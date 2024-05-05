@@ -9,7 +9,7 @@ function LandingPage() {
   const theme = useTheme();
 
   return (
-    <div className="">
+    <div className="container">
       <div className="relative -m-[2rem]">
         {theme.theme === "light" ? (
           <div className="absolute top-0 -z-10 h-full w-full bg-white">
