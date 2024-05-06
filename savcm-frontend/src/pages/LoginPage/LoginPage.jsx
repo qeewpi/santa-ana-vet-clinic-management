@@ -1,18 +1,16 @@
 import React from "react";
-import LeftSide from "./LeftSide";
-import RightSide from "./RightSide";
+import LoginLeftSide from "./LoginLeftSide";
+import LoginRightSide from "./LoginRightSide";
 
-function SignUpPage() {
+export default function LoginPage() {
   return (
     <div className="max-w-screen flex flex-row min-h-screen mx-auto">
       <div className="w-full lg:w-1/2">
-        <LeftSide />
+        <LoginLeftSide />
       </div>
       <div className="hidden lg:block lg:w-1/2">
-        <RightSide />
+        <LoginRightSide />
       </div>
     </div>
   );
 }
-
-export default SignUpPage;

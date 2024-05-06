@@ -2,6 +2,7 @@
 import { supabase } from "@/supabase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -201,9 +202,9 @@ export function SignUpForm() {
         <div className="text-container">
           <p className="text-sm mt-2">
             Already have an account?{" "}
-            <a href="/login" className="text-destructive">
+            <Link to="/login" className="text-destructive">
               Login
-            </a>
+            </Link>
           </p>
         </div>
       </form>
