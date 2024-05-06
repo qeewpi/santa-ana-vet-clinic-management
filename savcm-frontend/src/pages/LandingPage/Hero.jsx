@@ -26,9 +26,11 @@ function Hero() {
       </p>
 
       <div className="button-group flex flex-row items-center justify-center gap-4 pt-4">
-        <Button variant="ghost" data-aos="fade-right">
-          Log in
-        </Button>
+        <Link to="/login">
+          <Button variant="ghost" data-aos="fade-right">
+            Log in
+          </Button>
+        </Link>
         <Link to="/sign-up">
           <Button variant="outline" data-aos="fade-right">
             Sign up

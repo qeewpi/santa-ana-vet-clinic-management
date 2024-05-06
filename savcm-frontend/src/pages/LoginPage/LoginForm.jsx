@@ -1,8 +1,8 @@
 "use client";
-import { supabase } from "@/supabase";
+import { supabase } from "@/lib/supabase/admin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
 
 const formSchema = z.object({
   email: z
@@ -41,11 +43,18 @@ export function LoginForm() {
     },
   });
 
+  let navigate = useNavigate();
+
   async function onSubmit(values) {
-    let { data, error } = await supabase.auth.signIn({
+    setLoading(true);
+
+    let { data, error } = await supabase.auth.signInWithPassword({
       email: values.email,
       password: values.password,
     });
+
+    setLoading(false);
+    navigate("/dashboard");
 
     if (error) {
       console.error("Error logging in:", error);
@@ -53,6 +62,8 @@ export function LoginForm() {
       console.log("Success! Logged in with:", data);
     }
   }
+
+  const [loading, setLoading] = useState(false);
 
   return (
     <Form {...form}>
@@ -99,9 +110,16 @@ export function LoginForm() {
         />
 
         <div className="button-container pt-2">
-          <Button type="submit" className="w-full">
-            Log In
-          </Button>
+          {!loading ? (
+            <Button type="submit" className="w-full">
+              Log In
+            </Button>
+          ) : (
+            <Button disabled className="w-full">
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Logging in...
+            </Button>
+          )}
         </div>
 
         <div className="text-container">

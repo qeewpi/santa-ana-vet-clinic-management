@@ -1,8 +1,7 @@
 "use client";
-import { supabase } from "@/supabase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -15,6 +14,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { createMember } from "@/lib/supabase/members";
+import { Loader2 } from "lucide-react";
+import { useState, useTransition } from "react";
 
 const formSchema = z.object({
   username: z
@@ -53,14 +55,20 @@ const formSchema = z.object({
 });
 
 export function SignUpForm() {
+  let navigate = useNavigate();
+
+  const [isPending, startTransition] = useTransition();
+
+  const [loading, setLoading] = useState(false);
+
   // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
       email: "",
-      firstName: "",
-      lastName: "",
+      firstname: "",
+      lastname: "",
       address: "",
       password: "",
     },
@@ -68,20 +76,27 @@ export function SignUpForm() {
 
   // 2. Define a submit handler.
   async function onSubmit(values) {
-    // Use the form values to sign up the user.
-    let { data, error } = await supabase.auth.signUp({
-      email: values.email,
-      password: values.password,
+    setLoading(true);
+    values.role = "user";
+    values.status = "active";
+    values.specialization = "N/A";
+    console.log(values);
+
+    startTransition(async () => {
+      const result = await createMember(values);
+      const parsedResult = JSON.parse(result);
+
+      if (parsedResult.error) {
+        console.error("Error signing up:", parsedResult.error);
+        // toast notification
+      } else {
+        console.log("Success! Signed up with:", result);
+        // toast notification
+        navigate("/verify-email");
+      }
+
+      setLoading(false);
     });
-
-    // Handle the sign up response.
-    // redirect to the login page if successful
-
-    if (error) {
-      console.error("Error signing up:", error);
-    } else {
-      console.log("Success! Signed up with:", data);
-    }
   }
 
   return (
@@ -194,16 +209,23 @@ export function SignUpForm() {
         />
 
         <div className="button-container pt-2">
-          <Button type="submit" className="w-full">
-            Sign Up
-          </Button>
+          {!loading ? (
+            <Button type="submit" className="w-full">
+              Sign Up
+            </Button>
+          ) : (
+            <Button disabled className="w-full">
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Signing up...
+            </Button>
+          )}
         </div>
 
         <div className="text-container">
           <p className="text-sm mt-2">
             Already have an account?{" "}
             <Link to="/login" className="text-destructive">
-              Login
+              Log In
             </Link>
           </p>
         </div>
