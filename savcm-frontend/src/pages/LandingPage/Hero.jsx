@@ -13,7 +13,7 @@ function Hero() {
   }, []);
 
   return (
-    <div>
+    <div className="text-center">
       <h1
         className="scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl"
         data-aos="fade-down"

@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/lib/supabase/admin";
 import { useEffect } from "react";
 import {
@@ -92,6 +93,7 @@ function App() {
           />
           {/* <InterfaceComponent /> */}
         </Routes>
+        <Toaster />
       </ThemeProvider>
     </Router>
   );

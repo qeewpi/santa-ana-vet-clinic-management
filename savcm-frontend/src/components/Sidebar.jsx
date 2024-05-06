@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Calendar,
@@ -21,8 +21,17 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 
-import { useToast } from "@/components/ui/use-toast";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 import { supabase } from "@/lib/supabase/admin";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import Logo from "./ui/logo";
 import { ModeToggle } from "./ui/toggle-mode";
 
@@ -54,12 +63,18 @@ const commands = {
 };
 
 export default function Sidebar({ role, session }) {
-  const { toast } = useToast();
+  const { loading, setLoading } = useState(false);
+  let navigate = useNavigate();
 
   const handleLogout = async () => {
-    toast({
-      title: "Logging you out...",
-      description: "You have been successfully logged out.",
+    toast("You have been logged out", {
+      description: "You can log back in at any time",
+      action: {
+        label: "Log In",
+        onClick: () => {
+          navigate("/login");
+        },
+      },
     });
     await supabase.auth.signOut();
   };
@@ -98,24 +113,31 @@ export default function Sidebar({ role, session }) {
                     </CommandItem>
                   )
                 )}
-                <div onClick={handleLogout}>
-                  <CommandItem key="Log Out">
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log Out</span>
-                    <CommandShortcut>⌘L</CommandShortcut>
-                  </CommandItem>
-                </div>
               </CommandGroup>
             </CommandList>
           </Command>
         )}
-        <div className="userdetails-container flex flex-row items-center pl-1 pr-4 py-2 rounded-sm hover:text-accent-foreground hover:bg-accent gap-x-1">
-          <CircleUserRound className="w-8 h-8 stroke-1" />
-          <div className="flex flex-col text-xs">
-            <p className="font-medium">{`${session?.user?.user_metadata.first_name} ${session?.user?.user_metadata.last_name}`}</p>
-            <p className="text-muted-foreground">{session?.user?.email}</p>
-          </div>
-        </div>
+
+        <DropdownMenu className="min-w-full">
+          <DropdownMenuTrigger>
+            <div className="userdetails-container flex flex-row items-center pl-1 pr-4 py-2 rounded-sm hover:text-accent-foreground hover:bg-accent gap-x-1 text-start">
+              <CircleUserRound className="w-8 h-8 stroke-1" />
+              <div className="flex flex-col text-xs">
+                <p className="font-medium">{`${session?.user?.user_metadata.first_name} ${session?.user?.user_metadata.last_name}`}</p>
+                <p className="text-muted-foreground">{session?.user?.email}</p>
+              </div>
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="justify-start min-w-[16rem]">
+            <div onClick={handleLogout}>
+              <DropdownMenuItem className="w-full">
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>Log out</span>
+                <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+              </DropdownMenuItem>
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );
