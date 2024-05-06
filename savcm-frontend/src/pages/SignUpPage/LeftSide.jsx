@@ -10,7 +10,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 function LeftSide() {
   return (
-    <div className="flex flex-col p-[2rem] md:px-[8rem] justify-center min-h-full">
+    <div className="flex flex-col py-24 px-8 md:px-16 lg:px-32 :px-36 min-h-full">
       <div className="signup-navBar flex flex-row items-center">
         <div className="logo-container flex w-full items-center justify-center">
           <Logo />
