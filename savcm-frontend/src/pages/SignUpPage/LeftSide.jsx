@@ -3,9 +3,14 @@ import React from "react";
 import { ModeToggle } from "../../components/ui/toggle-mode";
 import { SignUpForm } from "./SignUpForm";
 
+import { createClient } from "@supabase/supabase-js";
+const supabaseUrl = "https://azcjslcguxorljszgnbx.supabase.co";
+const supabaseKey = import.meta.env.VITE_APP_SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 function LeftSide() {
   return (
-    <div className="flex flex-col p-[2rem] md:px-[4rem] lg:px-[6rem] xl:px-[8rem] 2xl:px-[12rem] justify-center min-h-screen">
+    <div className="flex flex-col p-[2rem] md:px-[4rem] lg:px-[6rem] xl:px-[8rem] 2xl:px-[12rem] justify-center min-h-full">
       <div className="signup-navBar flex flex-row items-center">
         <div className="logo-container flex w-full items-center justify-center">
           <Logo />

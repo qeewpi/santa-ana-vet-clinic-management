@@ -1,4 +1,5 @@
 "use client";
+import { supabase } from "@/supabase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -30,16 +31,16 @@ const formSchema = z.object({
     .max(50, { message: "Email must be at most 50 characters." }),
   firstname: z
     .string()
-    .min(6, { message: "First name must be at least 6 characters." })
+    .min(2, { message: "First name must be at least 2 characters." })
     .max(50, { message: "First name must be at most 50 characters." }),
   lastname: z
     .string()
-    .min(6, { message: "Last name must be at least 6 characters." })
+    .min(2, { message: "Last name must be at least 2 characters." })
     .max(50, { message: "Last name must be at most 50 characters." }),
   address: z
     .string()
     .min(6, { message: "Address must be at least 6 characters." })
-    .max(50, { message: "Address must be at most 50 characters." }),
+    .max(100, { message: "Address must be at most 100 characters." }),
   password: z
     .string()
     .min(6, {
@@ -65,10 +66,21 @@ export function SignUpForm() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values) {
+    // Use the form values to sign up the user.
+    let { data, error } = await supabase.auth.signUp({
+      email: values.email,
+      password: values.password,
+    });
+
+    // Handle the sign up response.
+    // redirect to the login page if successful
+
+    if (error) {
+      console.error("Error signing up:", error);
+    } else {
+      console.log("Success! Signed up with:", data);
+    }
   }
 
   return (
@@ -84,7 +96,11 @@ export function SignUpForm() {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="juandelacruz" {...field} />
+                <Input
+                  placeholder="juandelacruz"
+                  {...field}
+                  autoComplete="username"
+                />
               </FormControl>
 
               <FormMessage />
@@ -167,6 +183,7 @@ export function SignUpForm() {
                   placeholder="At least 6 characters"
                   {...field}
                   type="password"
+                  autoComplete="new-password"
                 />
               </FormControl>
 
