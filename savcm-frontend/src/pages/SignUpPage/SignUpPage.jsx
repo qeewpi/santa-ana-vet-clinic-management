@@ -10,7 +10,6 @@ function SignUpPage() {
       </div>
       <div className="relative hidden md:block md:w-1/2">
         <RightSide />
-
       </div>
     </div>
   );

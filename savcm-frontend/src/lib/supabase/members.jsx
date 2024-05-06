@@ -20,7 +20,7 @@ export async function createMember(data) {
   } else {
     const memberResult = await supabase.from("member").insert([
       {
-        id: createResult.data.user.id,
+        id: createResult.data.user?.id,
         first_name: data.firstname,
         last_name: data.lastname,
         address: data.address,
@@ -33,7 +33,7 @@ export async function createMember(data) {
       const permissionResult = await supabase.from("permission").insert([
         {
           role: data.role,
-          member_id: createResult.data.user.id,
+          member_id: createResult.data.user?.id,
           status: data.status,
         },
       ]);

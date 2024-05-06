@@ -81,7 +81,15 @@ function App() {
               </>
             }
           />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={
+              <>
+                <Dashboard />
+                <AuthListener />
+              </>
+            }
+          />
           {/* <InterfaceComponent /> */}
         </Routes>
       </ThemeProvider>
