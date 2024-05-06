@@ -3,7 +3,6 @@ import { CalendarDays, ShieldCheck } from "lucide-react";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import catAndDogImage from "@/assets/images/cats-and-dogs.png";
 import { useTheme } from "@/components/ui/theme-provider";
-
 const App = () => {
   return (
     <div>
@@ -27,10 +26,10 @@ function RightSide() {
         </p>
       </div>
       <div className="px-12">
-        <div className="benefit">
+        <div className="benefit transform transition-transform duration-300 ease-in-out hover:scale-105">
           <Card>
             <div className="flex justify-center items-center mt-6">
-              <CalendarDays className="w-12 h-12" />
+              <CalendarDays className="w-12 h-12" /> 
             </div>
             <CardHeader>
               <CardTitle>Easy Appointment Scheduling</CardTitle>
@@ -40,7 +39,7 @@ function RightSide() {
             </CardHeader>
           </Card>
         </div>
-        <div className="benefit mt-2">
+        <div className="benefit transform transition-transform duration-300 ease-in-out hover:scale-105 mt-2">
           <Card>
             <div className="flex justify-center items-center mt-6">
               <ShieldCheck className="w-12 h-12" />
