@@ -1,4 +1,4 @@
-# santa-ana-vet-clinic-management
+# Veterinary Clinic Management System for Santa Ana Animal Health Clinic
 
 ## Backend Setup
 
@@ -21,6 +21,7 @@ spring.datasource.url = jdbc:mysql://localhost:3306/savcmDb
 spring.datasource.username = your_username
 spring.datasource.password = your_password
 ```
+
 ### Step 3: Build and Run the Application
 
 Navigate to the root directory of the project and run the following command to build and run the application:
