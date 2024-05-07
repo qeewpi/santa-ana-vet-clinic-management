@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from "react";
+import { columns } from "./pet-columns";
 import { PetDataTable } from "./pet-data-table";
-import { columns } from './pet-columns';
 async function getData() {
   // Fetch data from your API here.
   return [
@@ -42,8 +42,8 @@ export default function Pets() {
   }, []);
 
   return (
-      <div className="container mx-auto py-10">
-        <PetDataTable columns={columns} data={data} />
-      </div>
-  )
+    <div className="min-w-full px-[2rem] py-[1rem]">
+      <PetDataTable columns={columns} data={data} />
+    </div>
+  );
 }

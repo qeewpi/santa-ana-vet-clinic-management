@@ -41,7 +41,7 @@ export default function Appointments() {
   }, []);
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="min-w-full px-[2rem] py-[1rem]">
       <DataTable columns={columns} data={data} />
     </div>
   );
