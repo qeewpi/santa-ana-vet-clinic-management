@@ -23,8 +23,6 @@ function AuthListener() {
     supabase.auth.onAuthStateChange((_, session) => {
       if (!session) {
         navigate("/");
-      } else {
-        navigate("/dashboard");
       }
     });
   }, []);

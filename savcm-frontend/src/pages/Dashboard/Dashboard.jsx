@@ -2,6 +2,7 @@ import Sidebar from "@/components/Sidebar";
 import { supabase } from "@/lib/supabase/admin";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Appointments from "../Appointments/Appointments";
 
 export default function Dashboard() {
   let { page } = useParams();
@@ -13,6 +14,9 @@ export default function Dashboard() {
       break;
     case "profile":
       content = "Profile Page";
+      break;
+    case "appointments":
+      content = <Appointments />;
       break;
     // Add more cases as needed.
     case "":
