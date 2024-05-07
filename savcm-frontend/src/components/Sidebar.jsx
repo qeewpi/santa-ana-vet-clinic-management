@@ -4,13 +4,17 @@ import {
   Briefcase,
   BriefcaseMedical,
   Calendar,
+  ChevronFirst,
   CircleUserRound,
   CreditCard,
   FileText,
   LayoutDashboard,
   LogOut,
+  Moon,
   PawPrint,
   Pill,
+  Sun,
+  SunMoon,
   User,
   Users,
 } from "lucide-react";
@@ -28,16 +32,19 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuShortcut,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 import { supabase } from "@/lib/supabase/create";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { Button } from "./ui/button";
 import Logo from "./ui/logo";
-import { ModeToggle } from "./ui/toggle-mode";
+import { useTheme } from "./ui/theme-provider";
 
 // Define the commands for each role
 const commands = {
@@ -92,6 +99,9 @@ function processLabel(label) {
 
 export default function Sidebar({ role, session }) {
   const { loading, setLoading } = useState(false);
+  const { expanded, setExpanded } = useState(false);
+  const { setTheme } = useTheme();
+
   let navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -114,9 +124,12 @@ export default function Sidebar({ role, session }) {
           <Command className="flex flex-grow">
             <div className="logo-container flex flex-row py-4 justify-between items-center">
               <Logo />
-              <ModeToggle />
+              <Button variant="outline" size="icon">
+                <ChevronFirst className="h-4 w-4" />
+              </Button>
             </div>
             <CommandInput placeholder="Type a command or search..." />
+
             <CommandList className="min-h-full">
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup heading="Main Menu">
@@ -155,20 +168,39 @@ export default function Sidebar({ role, session }) {
 
         <DropdownMenu className="min-w-full">
           <DropdownMenuTrigger>
-            <div className="userdetails-container flex flex-row items-center pl-1 pr-4 py-2 rounded-sm hover:text-accent-foreground hover:bg-accent gap-x-1 text-start">
-              <CircleUserRound className="w-8 h-8 stroke-1" />
-              <div className="flex flex-col text-xs">
-                <p className="font-medium">{`${session?.user?.user_metadata.first_name} ${session?.user?.user_metadata.last_name}`}</p>
-                <p className="text-muted-foreground">{session?.user?.email}</p>
+            <div className="userdetails-container flex flex-row items-center px-1 py-2 rounded-sm hover:text-accent-foreground hover:bg-accent gap-x-1 text-start justify-between">
+              <div className="flex">
+                <CircleUserRound className="w-8 h-8 stroke-1 " />
+                <div className="flex flex-col text-xs pl-1">
+                  <p className="font-medium">{`${session?.user?.user_metadata.first_name} ${session?.user?.user_metadata.last_name}`}</p>
+                  <p className="text-muted-foreground">
+                    {session?.user?.email}
+                  </p>
+                </div>
               </div>
             </div>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="justify-start min-w-[16rem]">
+          <DropdownMenuContent className="justify-start min-w-[272px]">
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>Theme</DropdownMenuLabel>
+              <DropdownMenuItem onClick={() => setTheme("light")}>
+                <Sun className="mr-2 h-4 w-4" />
+                Light
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("dark")}>
+                <Moon className="mr-2 h-4 w-4" />
+                Dark
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("system")}>
+                <SunMoon className="mr-2 h-4 w-4" />
+                System
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
             <div onClick={handleLogout}>
               <DropdownMenuItem className="w-full">
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Log out</span>
-                <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
               </DropdownMenuItem>
             </div>
           </DropdownMenuContent>
