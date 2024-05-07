@@ -1,8 +1,12 @@
 import Logo from "@/components/ui/logo";
 import { ModeToggle } from "@/components/ui/toggle-mode";
 import React from "react";
-import { LoginForm } from "./LoginForm";
 
+import { LoginForm } from "./LoginForm";
+import { createClient } from "@supabase/supabase-js";
+const supabaseUrl = "https://azcjslcguxorljszgnbx.supabase.co";
+const supabaseKey = import.meta.env.VITE_APP_SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 export default function LoginLeftSide() {
   return (
     <div className="flex flex-col py-24 px-8 md:px-16 lg:px-32 :px-36 min-h-full">

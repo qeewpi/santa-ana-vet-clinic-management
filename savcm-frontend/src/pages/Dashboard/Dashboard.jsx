@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Appointments from "../Appointments/Appointments";
 import Clients from "../Clients/Clients";
 import Pets from "../Pets/Pets";
+import Profile from "../Profile/Profile";
 
 export default function Dashboard() {
   let { page } = useParams();
@@ -33,7 +34,7 @@ export default function Dashboard() {
       content = "Billing Page";
       break;
     case "profile":
-      content = "Profile Page";
+      content = <Profile />;
       break;
     case "appointments":
       content = <Appointments />;
