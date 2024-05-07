@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase/admin";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Appointments from "../Appointments/Appointments";
+import Pets from "../Pets/Pets";
 
 export default function Dashboard() {
   let { page } = useParams();
@@ -17,6 +18,9 @@ export default function Dashboard() {
       break;
     case "appointments":
       content = <Appointments />;
+      break;
+    case "pets":
+      content = <Pets />;
       break;
     // Add more cases as needed.
     case "":
@@ -47,7 +51,7 @@ export default function Dashboard() {
       <div className="sidebar-container min-w-[300px] max-w-[300px] flex grow">
         <Sidebar role={role} session={session} />
       </div>
-      <div className="content-div w-full">
+      <div className="content-div w-full overflow-hidden">
         {/* <h1>{session?.user?.email}</h1>
         <h1>{session?.user?.user_metadata.role}</h1> */}
         {content}

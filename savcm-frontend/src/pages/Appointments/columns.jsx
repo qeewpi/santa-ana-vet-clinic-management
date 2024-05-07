@@ -1,31 +1,80 @@
 "use client";
 
-import { Delete, Edit, Eye } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowUpDown, Delete, Edit, Eye } from "lucide-react";
 
 export const columns = [
   {
     accessorKey: "appointmentId",
-    header: "ID",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        ID
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
   },
   {
     accessorKey: "memberId",
-    header: "Member",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Member
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
   },
   {
     accessorKey: "date",
-    header: "Date",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Date
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
   },
   {
     accessorKey: "time",
-    header: "Time",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Time
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
   },
   {
     accessorKey: "reasonForVisit",
-    header: "Reason for Visit",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Reason for Visit
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Status
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
   },
   {
     id: "actions",
@@ -42,18 +91,4 @@ export const columns = [
       );
     },
   },
-
-  //   {
-  //     accessorKey: "amount",
-  //     header: () => <div className="text-right">Amount</div>,
-  //     cell: ({ row }) => {
-  //       const amount = parseFloat(row.getValue("amount"));
-  //       const formatted = new Intl.NumberFormat("en-US", {
-  //         style: "currency",
-  //         currency: "USD",
-  //       }).format(amount);
-
-  //       return <div className="text-right font-medium">{formatted}</div>;
-  //     },
-  //   },
 ];
