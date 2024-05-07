@@ -1,32 +1,14 @@
 import Sidebar from "@/components/Sidebar";
-import { supabase } from "@/lib/supabase/admin";
-import React, { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase/create";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Appointments from "../Appointments/Appointments";
+import Clients from "../Clients/Clients";
 import Pets from "../Pets/Pets";
 
 export default function Dashboard() {
   let { page } = useParams();
   let content;
-
-  switch (page) {
-    case "billing":
-      content = "Billing Page";
-      break;
-    case "profile":
-      content = "Profile Page";
-      break;
-    case "appointments":
-      content = <Appointments />;
-      break;
-    case "pets":
-      content = <Pets />;
-      break;
-    // Add more cases as needed.
-    case "":
-      content = "Default Page";
-      break;
-  }
 
   const [session, setSession] = useState(null);
   const [role, setRole] = useState(null);
@@ -45,6 +27,28 @@ export default function Dashboard() {
 
     return () => subscription.unsubscribe();
   }, [role]);
+
+  switch (page) {
+    case "billing":
+      content = "Billing Page";
+      break;
+    case "profile":
+      content = "Profile Page";
+      break;
+    case "appointments":
+      content = <Appointments />;
+      break;
+    case "pets":
+      content = <Pets />;
+      break;
+    case "clients":
+      content = <Clients role={role} />;
+      break;
+    // Add more cases as needed.
+    case "":
+      content = "Default Page";
+      break;
+  }
 
   return (
     <div className="flex flex-row min-h-screen">

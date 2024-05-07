@@ -1,5 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
-import { supabase } from "@/lib/supabase/admin";
+import { supabase } from "@/lib/supabase/create";
 import { useEffect } from "react";
 import {
   Route,

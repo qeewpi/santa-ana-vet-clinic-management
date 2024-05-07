@@ -1,5 +1,5 @@
 "use client";
-import { supabase } from "@/lib/supabase/admin";
+import { supabase } from "@/lib/supabase/create";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";

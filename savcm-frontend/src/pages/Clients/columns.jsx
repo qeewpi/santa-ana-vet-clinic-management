@@ -5,7 +5,7 @@ import { ArrowUpDown, Delete, Edit, Eye } from "lucide-react";
 
 export const columns = [
   {
-    accessorKey: "appointmentId",
+    accessorKey: "id",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -17,49 +17,73 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "memberId",
+    accessorKey: "created_at",
     header: ({ column }) => (
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Member
+        Created At
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
   },
   {
-    accessorKey: "date",
+    accessorKey: "member.first_name",
     header: ({ column }) => (
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Date
+        First Name
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
   },
   {
-    accessorKey: "time",
+    accessorKey: "member.last_name",
     header: ({ column }) => (
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Time
+        Last Name
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
   },
   {
-    accessorKey: "reasonForVisit",
+    accessorKey: "member.address",
     header: ({ column }) => (
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Reason for Visit
+        Address
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
+  {
+    accessorKey: "member.specialization",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Specialization
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
+  {
+    accessorKey: "role",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Role
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),

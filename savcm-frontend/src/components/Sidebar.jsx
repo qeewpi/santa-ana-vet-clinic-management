@@ -33,7 +33,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { supabase } from "@/lib/supabase/admin";
+import { supabase } from "@/lib/supabase/create";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import Logo from "./ui/logo";

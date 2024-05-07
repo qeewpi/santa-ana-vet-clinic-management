@@ -14,3 +14,7 @@ export async function createSupabaseAdmin() {
     },
   });
 }
+
+export async function createSupabaseServerClient() {
+  return createClient(supabase_url, service_role_key);
+}

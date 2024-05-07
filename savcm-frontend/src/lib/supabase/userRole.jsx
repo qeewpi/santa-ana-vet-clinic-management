@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/admin";
+import { supabase } from "@/lib/supabase/create";
 import { useEffect, useState } from "react";
 
 export const useUserRole = () => {

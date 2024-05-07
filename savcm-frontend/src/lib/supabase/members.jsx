@@ -1,4 +1,4 @@
-import { createSupabaseAdmin } from "./admin";
+import { createSupabaseAdmin, createSupabaseServerClient } from "./create";
 
 export async function createMember(data) {
   const supabase = await createSupabaseAdmin();
@@ -39,5 +39,17 @@ export async function createMember(data) {
       ]);
       return JSON.stringify(permissionResult);
     }
+  }
+}
+
+export async function getMembers() {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("permission")
+    .select("*, member(*)");
+  if (error) {
+    return JSON.stringify(error);
+  } else {
+    return JSON.stringify(data);
   }
 }
