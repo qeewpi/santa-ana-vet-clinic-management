@@ -126,7 +126,11 @@ export default function Sidebar({ role, session, isExpanded, setIsExpanded }) {
   };
 
   return (
-    <div className="fixed flex grow h-full max-w-[300px] border-r p-4 rounded-none text-left">
+    <div
+      className={`overflow-hidden transition-all fixed flex grow h-full border-r p-4 rounded-none text-left ${
+        expanded ? "min-w-[300px] max-w-[300px]" : "min-w-[86px] max-w-[86px]"
+      }`}
+    >
       <div className="flex flex-col justify-between grow">
         {role && (
           <Command className="flex flex-grow">
