@@ -108,10 +108,10 @@ export default function Sidebar({ role, session }) {
   };
 
   return (
-    <div className="fixed h-full min-w-[300px] max-w-[300px] border-r p-4 rounded-none text-left">
-      <div className="flex flex-col justify-between h-full">
+    <div className="fixed flex grow h-full min-w-[300px] max-w-[300px] border-r p-4 rounded-none text-left">
+      <div className="flex flex-col justify-between grow">
         {role && (
-          <Command className="min-h-full">
+          <Command className="flex flex-grow">
             <div className="logo-container flex flex-row py-4 justify-between items-center">
               <Logo />
               <ModeToggle />
