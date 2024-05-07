@@ -52,7 +52,7 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-row min-h-screen">
-      <div className="sidebar-container min-w-[300px] max-w-[300px] flex grow">
+      <div className="sidebar-container min-w-[300px] max-w-[300px]">
         <Sidebar role={role} session={session} />
       </div>
       <div className="content-div w-full overflow-hidden">
