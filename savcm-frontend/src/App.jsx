@@ -83,6 +83,15 @@ function App() {
             }
           />
           <Route
+            path="/dashboard/:page"
+            element={
+              <>
+                <Dashboard />
+                <AuthListener />
+              </>
+            }
+          />
+          <Route
             path="/dashboard"
             element={
               <>

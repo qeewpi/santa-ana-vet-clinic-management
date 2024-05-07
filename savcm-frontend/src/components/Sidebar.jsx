@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 
 import {
+  BriefcaseMedical,
   Calendar,
   CircleUserRound,
+  Cog,
   CreditCard,
+  FileText,
   LayoutDashboard,
   LogOut,
   PawPrint,
   User,
+  Users,
 } from "lucide-react";
 
 import {
@@ -30,7 +34,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { supabase } from "@/lib/supabase/admin";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import Logo from "./ui/logo";
 import { ModeToggle } from "./ui/toggle-mode";
@@ -50,17 +54,48 @@ const commands = {
   },
   admin: {
     mainMenu: [
-      { icon: LayoutDashboard, label: "Dashboard", shortcut: "⌘D" },
+      {
+        icon: LayoutDashboard,
+        label: "Dashboard",
+        shortcut: "⌘D",
+      },
       { icon: PawPrint, label: "Pets", shortcut: "⌘P" },
-      { icon: Calendar, label: "Appointments", shortcut: "⌘A" },
+      {
+        icon: Calendar,
+        label: "Appointments",
+        shortcut: "⌘A",
+      },
+      {
+        icon: Users,
+        label: "Clients",
+        shortcut: "⌘C",
+      },
+      { icon: BriefcaseMedical, label: "Staff", shortcut: "⌘S" },
     ],
     settings: [
-      { icon: User, label: "Users", shortcut: "⌘U" },
-      { icon: CreditCard, label: "Billing", shortcut: "⌘B" },
+      {
+        icon: CreditCard,
+        label: "Billing",
+        shortcut: "⌘B",
+      },
+      {
+        icon: FileText,
+        label: "Reports",
+        shortcut: "⌘R",
+      },
+      {
+        icon: Cog,
+        label: "System Settings",
+        shortcut: "⌘,",
+      },
     ],
   },
   // Add commands for other roles here
 };
+
+function processLabel(label) {
+  return label.toLowerCase().replace(" ", "-");
+}
 
 export default function Sidebar({ role, session }) {
   const { loading, setLoading } = useState(false);
@@ -83,35 +118,48 @@ export default function Sidebar({ role, session }) {
     <div className="fixed h-full min-w-[300px] max-w-[300px] border-r p-4 rounded-none text-left">
       <div className="flex flex-col justify-between h-full">
         {role && (
-          <Command>
+          <Command className="min-h-full">
             <div className="logo-container flex flex-row py-4 justify-between items-center">
               <Logo />
               <ModeToggle />
             </div>
             <CommandInput placeholder="Type a command or search..." />
-            <CommandList>
+            <CommandList className="min-h-full">
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup heading="Main Menu">
                 {commands[role].mainMenu.map(
-                  ({ icon: Icon, label, shortcut }) => (
-                    <CommandItem key={label}>
-                      <Icon className="mr-2 h-4 w-4" />
-                      <span>{label}</span>
-                      <CommandShortcut>{shortcut}</CommandShortcut>
-                    </CommandItem>
-                  )
+                  ({ icon: Icon, label, shortcut }) => {
+                    let to =
+                      label === "Dashboard"
+                        ? "/dashboard"
+                        : "/dashboard/" + processLabel(label);
+                    return (
+                      <Link to={to} key={to}>
+                        <CommandItem>
+                          <Icon className="mr-2 h-4 w-4" />
+                          <span>{label}</span>
+                          <CommandShortcut>{shortcut}</CommandShortcut>
+                        </CommandItem>
+                      </Link>
+                    );
+                  }
                 )}
               </CommandGroup>
               <CommandSeparator />
               <CommandGroup heading="Settings">
                 {commands[role].settings.map(
-                  ({ icon: Icon, label, shortcut }) => (
-                    <CommandItem key={label}>
-                      <Icon className="mr-2 h-4 w-4" />
-                      <span>{label}</span>
-                      <CommandShortcut>{shortcut}</CommandShortcut>
-                    </CommandItem>
-                  )
+                  ({ icon: Icon, label, shortcut }) => {
+                    let to = "/dashboard/" + processLabel(label);
+                    return (
+                      <Link to={to} key={to}>
+                        <CommandItem>
+                          <Icon className="mr-2 h-4 w-4" />
+                          <span>{label}</span>
+                          <CommandShortcut>{shortcut}</CommandShortcut>
+                        </CommandItem>
+                      </Link>
+                    );
+                  }
                 )}
               </CommandGroup>
             </CommandList>

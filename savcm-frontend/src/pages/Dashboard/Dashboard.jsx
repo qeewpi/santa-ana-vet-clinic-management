@@ -1,8 +1,25 @@
 import Sidebar from "@/components/Sidebar";
 import { supabase } from "@/lib/supabase/admin";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function Dashboard() {
+  let { page } = useParams();
+  let content;
+
+  switch (page) {
+    case "billing":
+      content = "Billing Page";
+      break;
+    case "profile":
+      content = "Profile Page";
+      break;
+    // Add more cases as needed.
+    case "":
+      content = "Default Page";
+      break;
+  }
+
   const [session, setSession] = useState(null);
   const [role, setRole] = useState(null);
 
@@ -29,6 +46,7 @@ export default function Dashboard() {
       <div className="content-div w-full">
         {/* <h1>{session?.user?.email}</h1>
         <h1>{session?.user?.user_metadata.role}</h1> */}
+        {content}
       </div>
     </div>
   );
