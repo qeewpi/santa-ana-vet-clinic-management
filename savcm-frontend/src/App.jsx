@@ -1,3 +1,5 @@
+import "./App.css";
+
 import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/lib/supabase/create";
 import { useEffect } from "react";
@@ -7,7 +9,6 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
-import "./App.css";
 import { ThemeProvider } from "./components/ui/theme-provider";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import LandingPage from "./pages/LandingPage/LandingPage";
@@ -30,6 +31,20 @@ function AuthListener() {
   return null;
 }
 
+function AuthListenerSignedIn() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    supabase.auth.onAuthStateChange((_, session) => {
+      if (session) {
+        navigate("/dashboard");
+      }
+    });
+  }, []);
+
+  return null;
+}
+
 function App() {
   return (
     <Router>
@@ -40,7 +55,7 @@ function App() {
             element={
               <>
                 <LandingPage />
-                <AuthListener />
+                <AuthListenerSignedIn />
               </>
             }
           />
@@ -49,7 +64,7 @@ function App() {
             element={
               <>
                 <SignUpPage />
-                <AuthListener />
+                <AuthListenerSignedIn />
               </>
             }
           ></Route>
@@ -58,7 +73,7 @@ function App() {
             element={
               <>
                 <LogInPage />
-                <AuthListener />
+                <AuthListenerSignedIn />
               </>
             }
           ></Route>
@@ -67,7 +82,7 @@ function App() {
             element={
               <>
                 <VerifyEmailPage />
-                <AuthListener />
+                <AuthListenerSignedIn />
               </>
             }
           />
@@ -76,7 +91,7 @@ function App() {
             element={
               <>
                 <EmailVerifiedPage />
-                <AuthListener />
+                <AuthListenerSignedIn />
               </>
             }
           />

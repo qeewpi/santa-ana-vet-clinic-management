@@ -11,6 +11,8 @@ export default function Dashboard() {
   let { page } = useParams();
   let content;
 
+  const [expanded, setExpanded] = useState(false);
+
   const [session, setSession] = useState(null);
   const [role, setRole] = useState(null);
 
@@ -53,10 +55,21 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-row min-h-screen">
-      <div className="sidebar-container min-w-[300px] max-w-[300px]">
-        <Sidebar role={role} session={session} />
+      <div
+        className={`sidebar-container overflow-hidden transition-all ease-in-out ${
+          !expanded
+            ? "min-w-[300px] max-w-[300px]"
+            : "min-w-[86px] max-w-[86px]"
+        }`}
+      >
+        <Sidebar
+          role={role}
+          session={session}
+          isExpanded={expanded}
+          setIsExpanded={setExpanded}
+        />
       </div>
-      <div className="content-div w-full overflow-hidden">
+      <div className="flex content-div w-full overflow-hidden min-h-screen">
         {/* <h1>{session?.user?.email}</h1>
         <h1>{session?.user?.user_metadata.role}</h1> */}
         {content}

@@ -5,6 +5,7 @@ import {
   BriefcaseMedical,
   Calendar,
   ChevronFirst,
+  ChevronLast,
   CircleUserRound,
   CreditCard,
   FileText,
@@ -42,8 +43,9 @@ import {
 import { supabase } from "@/lib/supabase/create";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import LogoDarkImg from "../assets/images/logo-dark.png";
+import LogoImg from "../assets/images/logo.png";
 import { Button } from "./ui/button";
-import Logo from "./ui/logo";
 import { useTheme } from "./ui/theme-provider";
 
 // Define the commands for each role
@@ -97,10 +99,11 @@ function processLabel(label) {
   return label.toLowerCase().replace(" ", "-");
 }
 
-export default function Sidebar({ role, session }) {
-  const { loading, setLoading } = useState(false);
-  const { expanded, setExpanded } = useState(false);
+export default function Sidebar({ role, session, isExpanded, setIsExpanded }) {
+  const [loading, setLoading] = useState(false);
+  const [expanded, setExpanded] = useState(true);
   const { setTheme } = useTheme();
+  const theme = useTheme();
 
   let navigate = useNavigate();
 
@@ -117,22 +120,72 @@ export default function Sidebar({ role, session }) {
     await supabase.auth.signOut();
   };
 
+  const handleToggle = () => {
+    setExpanded((prevExpanded) => !prevExpanded);
+    setIsExpanded((prevExpanded) => !prevExpanded);
+  };
+
   return (
-    <div className="fixed flex grow h-full min-w-[300px] max-w-[300px] border-r p-4 rounded-none text-left">
+    <div
+      className={`overflow-hidden transition-all fixed flex grow h-full border-r p-4 rounded-none text-left ${
+        expanded ? "min-w-[300px] max-w-[300px]" : "min-w-[86px] max-w-[86px]"
+      }`}
+    >
       <div className="flex flex-col justify-between grow">
         {role && (
           <Command className="flex flex-grow">
-            <div className="logo-container flex flex-row py-4 justify-between items-center">
-              <Logo />
-              <Button variant="outline" size="icon">
-                <ChevronFirst className="h-4 w-4" />
+            <div
+              className={`logo-container flex flex-row py-4 items-center ${
+                expanded ? "justify-between" : "justify-center"
+              }`}
+            >
+              <Link to="/dashboard">
+                {theme.theme === "light" ? (
+                  <img
+                    src={LogoImg}
+                    alt="Logo"
+                    className={`overflow-hidden transition-all ease-in-out ${
+                      expanded ? "w-48" : "w-0"
+                    }`}
+                  />
+                ) : (
+                  <img
+                    src={LogoDarkImg}
+                    alt="Logo"
+                    className={`overflow-hidden transition-all ease-in-out ${
+                      expanded ? "w-48" : "w-0"
+                    }`}
+                  />
+                )}
+              </Link>
+
+              <Button variant="outline" size="icon" onClick={handleToggle}>
+                {expanded ? (
+                  <ChevronFirst className="h-4 w-4" />
+                ) : (
+                  <ChevronLast className="h-4 w-4" />
+                )}
               </Button>
             </div>
-            <CommandInput placeholder="Type a command or search..." />
+            <CommandInput
+              placeholder="Type a command or search..."
+              className={`overflow-hidden transition-all ease-in-out flex flex-col text-xs pl-1 ${
+                expanded ? "w-48" : "w-0"
+              }`}
+            />
 
             <CommandList className="min-h-full">
               <CommandEmpty>No results found.</CommandEmpty>
-              <CommandGroup heading="Main Menu">
+              <CommandGroup className="overflow-hidden transition-all ease-in-out flex flex-col text-xs pl-1">
+                <div
+                  className={`overflow-hidden transition-all ease-in-out ${
+                    expanded ? "w-full" : "hidden"
+                  }`}
+                >
+                  <h2 className="px-2 py-1.5 font-medium text-muted-foreground">
+                    Main Menu
+                  </h2>
+                </div>
                 {commands[role].mainMenu.map(({ icon: Icon, label }) => {
                   let to =
                     label === "Dashboard"
@@ -142,21 +195,42 @@ export default function Sidebar({ role, session }) {
                     <Link to={to} key={to}>
                       <CommandItem>
                         <Icon className="mr-2 h-4 w-4" />
-                        <span>{label}</span>
+                        <span
+                          className={`overflow-hidden transition-all ease-in-out flex flex-col text-xs pl-1 ${
+                            expanded ? "w-48" : "w-0"
+                          }`}
+                        >
+                          {label}
+                        </span>
                       </CommandItem>
                     </Link>
                   );
                 })}
               </CommandGroup>
               <CommandSeparator />
-              <CommandGroup heading="Settings">
+              <CommandGroup className="overflow-hidden transition-all ease-in-out flex flex-col text-xs pl-1">
+                <div
+                  className={`overflow-hidden transition-all ease-in-out ${
+                    expanded ? "w-full" : "hidden"
+                  }`}
+                >
+                  <h2 className="px-2 py-1.5 font-medium text-muted-foreground">
+                    Settings
+                  </h2>
+                </div>
                 {commands[role].settings.map(({ icon: Icon, label }) => {
                   let to = "/dashboard/" + processLabel(label);
                   return (
                     <Link to={to} key={to}>
                       <CommandItem>
                         <Icon className="mr-2 h-4 w-4" />
-                        <span>{label}</span>
+                        <span
+                          className={`overflow-hidden transition-all ease-in-out flex flex-col text-xs pl-1 ${
+                            expanded ? "w-48" : "w-0"
+                          }`}
+                        >
+                          {label}
+                        </span>
                       </CommandItem>
                     </Link>
                   );
@@ -168,10 +242,28 @@ export default function Sidebar({ role, session }) {
 
         <DropdownMenu className="min-w-full">
           <DropdownMenuTrigger>
-            <div className="userdetails-container flex flex-row items-center px-1 py-2 rounded-sm hover:text-accent-foreground hover:bg-accent gap-x-1 text-start justify-between">
-              <div className="flex">
-                <CircleUserRound className="w-8 h-8 stroke-1 " />
-                <div className="flex flex-col text-xs pl-1">
+            <div
+              className={`userdetails-container flex flex-row items-center px-1  rounded-sm hover:text-accent-foreground hover:bg-accent gap-x-1 text-start justify-between ${
+                expanded ? "py-2" : "justify-center items-center h-10 w-8"
+              }`}
+            >
+              <div
+                className={`flex ${
+                  expanded
+                    ? ""
+                    : "py-0 pb-2 justify-center items-center h-8 w-8"
+                }`}
+              >
+                <CircleUserRound
+                  className={`overflow-hidden transition-all ease-in-out w-8 h-8 stroke-1 ${
+                    expanded ? "" : "mt-2"
+                  }`}
+                />
+                <div
+                  className={`overflow-hidden transition-all ease-in-out flex flex-col text-xs pl-1 ${
+                    expanded ? "w-48" : "w-0"
+                  }`}
+                >
                   <p className="font-medium">{`${session?.user?.user_metadata.first_name} ${session?.user?.user_metadata.last_name}`}</p>
                   <p className="text-muted-foreground">
                     {session?.user?.email}
