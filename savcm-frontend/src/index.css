@@ -58,6 +58,12 @@
   }
 }
 
+@font-face {
+  font-family: "Geist";
+  src: url("/src/assets/fonts/geist/Geist-Regular.woff2") format("woff2");
+  /* Add other font styles if available */
+}
+
 body {
   font-family: "Geist", sans-serif;
   -webkit-font-smoothing: antialiased;
