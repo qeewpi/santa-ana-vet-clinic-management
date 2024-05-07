@@ -16,12 +16,13 @@ export default function Dashboard() {
     case "profile":
       content = "Profile Page";
       break;
-    case "appointments":
-      content = <Appointments />;
-      break;
     case "pets":
       content = <Pets />;
       break;
+    case "appointments":
+      content = <Appointments />;
+      break;
+   
     // Add more cases as needed.
     case "":
       content = "Default Page";
