@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 
 import {
+  Briefcase,
   BriefcaseMedical,
   Calendar,
   CircleUserRound,
-  Cog,
   CreditCard,
   FileText,
   LayoutDashboard,
   LogOut,
   PawPrint,
+  Pill,
   User,
   Users,
 } from "lucide-react";
@@ -22,7 +23,6 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command";
 
 import {
@@ -43,13 +43,13 @@ import { ModeToggle } from "./ui/toggle-mode";
 const commands = {
   user: {
     mainMenu: [
-      { icon: LayoutDashboard, label: "Dashboard", shortcut: "⌘D" },
-      { icon: PawPrint, label: "My Pets", shortcut: "⌘P" },
-      { icon: Calendar, label: "Appointments", shortcut: "⌘A" },
+      { icon: LayoutDashboard, label: "Dashboard" },
+      { icon: PawPrint, label: "My Pets" },
+      { icon: Calendar, label: "Appointments" },
     ],
     settings: [
-      { icon: User, label: "Profile", shortcut: "⌘P" },
-      { icon: CreditCard, label: "Billing", shortcut: "⌘B" },
+      { icon: User, label: "Profile" },
+      { icon: CreditCard, label: "Billing" },
     ],
   },
   admin: {
@@ -57,37 +57,30 @@ const commands = {
       {
         icon: LayoutDashboard,
         label: "Dashboard",
-        shortcut: "⌘D",
       },
-      { icon: PawPrint, label: "Pets", shortcut: "⌘P" },
+      { icon: PawPrint, label: "Pets" },
       {
         icon: Calendar,
         label: "Appointments",
-        shortcut: "⌘A",
       },
       {
         icon: Users,
         label: "Clients",
-        shortcut: "⌘C",
       },
       { icon: BriefcaseMedical, label: "Staff", shortcut: "⌘S" },
+      { icon: Briefcase, label: "Services", to: "/services" },
+      { icon: Pill, label: "Medications", to: "/medications" },
     ],
     settings: [
       {
         icon: CreditCard,
         label: "Billing",
-        shortcut: "⌘B",
       },
       {
         icon: FileText,
         label: "Reports",
-        shortcut: "⌘R",
       },
-      {
-        icon: Cog,
-        label: "System Settings",
-        shortcut: "⌘,",
-      },
+      { icon: User, label: "Profile" },
     ],
   },
   // Add commands for other roles here
@@ -127,40 +120,34 @@ export default function Sidebar({ role, session }) {
             <CommandList className="min-h-full">
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup heading="Main Menu">
-                {commands[role].mainMenu.map(
-                  ({ icon: Icon, label, shortcut }) => {
-                    let to =
-                      label === "Dashboard"
-                        ? "/dashboard"
-                        : "/dashboard/" + processLabel(label);
-                    return (
-                      <Link to={to} key={to}>
-                        <CommandItem>
-                          <Icon className="mr-2 h-4 w-4" />
-                          <span>{label}</span>
-                          <CommandShortcut>{shortcut}</CommandShortcut>
-                        </CommandItem>
-                      </Link>
-                    );
-                  }
-                )}
+                {commands[role].mainMenu.map(({ icon: Icon, label }) => {
+                  let to =
+                    label === "Dashboard"
+                      ? "/dashboard"
+                      : "/dashboard/" + processLabel(label);
+                  return (
+                    <Link to={to} key={to}>
+                      <CommandItem>
+                        <Icon className="mr-2 h-4 w-4" />
+                        <span>{label}</span>
+                      </CommandItem>
+                    </Link>
+                  );
+                })}
               </CommandGroup>
               <CommandSeparator />
               <CommandGroup heading="Settings">
-                {commands[role].settings.map(
-                  ({ icon: Icon, label, shortcut }) => {
-                    let to = "/dashboard/" + processLabel(label);
-                    return (
-                      <Link to={to} key={to}>
-                        <CommandItem>
-                          <Icon className="mr-2 h-4 w-4" />
-                          <span>{label}</span>
-                          <CommandShortcut>{shortcut}</CommandShortcut>
-                        </CommandItem>
-                      </Link>
-                    );
-                  }
-                )}
+                {commands[role].settings.map(({ icon: Icon, label }) => {
+                  let to = "/dashboard/" + processLabel(label);
+                  return (
+                    <Link to={to} key={to}>
+                      <CommandItem>
+                        <Icon className="mr-2 h-4 w-4" />
+                        <span>{label}</span>
+                      </CommandItem>
+                    </Link>
+                  );
+                })}
               </CommandGroup>
             </CommandList>
           </Command>
