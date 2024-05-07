@@ -56,7 +56,9 @@ export default function Dashboard() {
     <div className="flex flex-row min-h-screen">
       <div
         className={`sidebar-container overflow-hidden transition-all ease-in-out ${
-          expanded ? "min-w-[300px] max-w-[300px]" : "min-w-[86px] max-w-[86px]"
+          !expanded
+            ? "min-w-[300px] max-w-[300px]"
+            : "min-w-[86px] max-w-[86px]"
         }`}
       >
         <Sidebar
