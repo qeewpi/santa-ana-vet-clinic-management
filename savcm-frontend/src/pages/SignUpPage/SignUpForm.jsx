@@ -14,19 +14,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "@/components/ui/use-toast";
 import { createMember } from "@/lib/supabase/member-service";
 import { Loader2 } from "lucide-react";
 import { useState, useTransition } from "react";
 
 const formSchema = z.object({
-  username: z
-    .string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    })
-    .max(20, {
-      message: "Username must be at most 20 characters.",
-    }),
+  // username: z
+  //   .string()
+  //   .min(2, {
+  //     message: "Username must be at least 2 characters.",
+  //   })
+  //   .max(20, {
+  //     message: "Username must be at most 20 characters.",
+  //   }),
   email: z
     .string()
     .email()
@@ -65,7 +66,7 @@ export function SignUpForm() {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      // username: "",
       email: "",
       firstname: "",
       lastname: "",
@@ -91,7 +92,10 @@ export function SignUpForm() {
         // toast notification
       } else {
         console.log("Success! Signed up with:", result);
-        // toast notification
+        toast({
+          title: "Success!",
+          description: "You have successfully signed up! You may now log in.",
+        });
         navigate("/login");
       }
 
@@ -105,7 +109,7 @@ export function SignUpForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-3 border md:border-0 p-4 md:p-0 rounded-lg"
       >
-        <FormField
+        {/* <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
@@ -122,7 +126,7 @@ export function SignUpForm() {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <FormField
           control={form.control}
           name="email"
