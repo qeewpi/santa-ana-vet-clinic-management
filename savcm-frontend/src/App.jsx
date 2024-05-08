@@ -45,7 +45,7 @@ function AuthListenerSignedIn() {
           location.pathname === "/email-verified" ||
           location.pathname === "/")
       ) {
-        navigate("/dashboard");
+        navigate("/dashboard/pets");
       }
     });
   }, []);
@@ -112,15 +112,7 @@ function App() {
               </>
             }
           />
-          <Route
-            path="/dashboard"
-            element={
-              <>
-                <Dashboard />
-                <AuthListener />
-              </>
-            }
-          />
+
           {/* <InterfaceComponent /> */}
         </Routes>
         <Toaster />

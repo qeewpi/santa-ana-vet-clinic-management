@@ -54,7 +54,7 @@ export function LoginForm() {
     });
 
     setLoading(false);
-    navigate("/dashboard");
+    navigate("/dashboard/pets");
 
     if (error) {
       console.error("Error logging in:", error);

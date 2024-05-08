@@ -1,7 +1,7 @@
+import { getMedications } from "@/lib/supabase/medications-service";
 import { useEffect, useState } from "react";
 import { columns } from "./medications-columns";
 import { MedicationsDataTable } from "./medications-data-table";
-import { getMedications } from "@/lib/supabase/medications-service";
 
 export default function Medications() {
   const [data, setData] = useState([]);
@@ -31,7 +31,7 @@ export default function Medications() {
   return (
     <div className="min-w-full px-[2rem] py-[2rem]">
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-        Veterinarian
+        Medications
       </h2>
       <MedicationsDataTable columns={columns} data={data} />
     </div>

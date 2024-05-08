@@ -8,8 +8,6 @@ import {
   ChevronLast,
   CircleUserRound,
   CreditCard,
-  FileText,
-  LayoutDashboard,
   LogOut,
   Moon,
   PawPrint,
@@ -53,7 +51,6 @@ import { useToast } from "./ui/use-toast";
 const commands = {
   user: {
     mainMenu: [
-      { icon: LayoutDashboard, label: "Dashboard" },
       { icon: PawPrint, label: "My Pets" },
       { icon: Calendar, label: "Appointments" },
     ],
@@ -64,10 +61,6 @@ const commands = {
   },
   admin: {
     mainMenu: [
-      {
-        icon: LayoutDashboard,
-        label: "Dashboard",
-      },
       { icon: PawPrint, label: "Pets" },
       {
         icon: Calendar,
@@ -86,10 +79,7 @@ const commands = {
         icon: CreditCard,
         label: "Invoice",
       },
-      {
-        icon: FileText,
-        label: "Reports",
-      },
+
       { icon: User, label: "Profile" },
     ],
   },

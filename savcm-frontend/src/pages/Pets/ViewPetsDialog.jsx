@@ -95,13 +95,13 @@ export default function ViewPetsDialog({ id, data }) {
     <Dialog isOpen={open} onOpenChange={setOpen}>
       <TooltipProvider>
         <Tooltip>
-          <DialogTrigger asChild>
-            <TooltipTrigger>
+          <TooltipTrigger>
+            <DialogTrigger asChild>
               <Button variant="outline" size="smallerIcon">
                 <Eye className="h-4 w-4"></Eye>
               </Button>
-            </TooltipTrigger>
-          </DialogTrigger>
+            </DialogTrigger>
+          </TooltipTrigger>
           <TooltipContent>View</TooltipContent>
         </Tooltip>
       </TooltipProvider>

@@ -17,6 +17,7 @@ export default function Appointments() {
         if (appointment.created_at) {
           const date = new Date(appointment.created_at);
           appointment.created_at = date.toDateString();
+          appointment.date = new Date(appointment.date).toDateString();
         }
       });
       setData(parsedAppointments);
@@ -33,7 +34,11 @@ export default function Appointments() {
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
         Appointments
       </h2>
-      <DataTable columns={columns} data={data} />
+      <DataTable
+        columns={columns(getData, data)}
+        data={data}
+        getData={getData}
+      />
     </div>
   );
 }

@@ -53,22 +53,23 @@ const formSchema = z.object({
     }),
 });
 
-export function ProfileForm() {
+export function ProfileForm({ userSession }) {
   let navigate = useNavigate();
 
   const [isPending, startTransition] = useTransition();
 
   const [loading, setLoading] = useState(false);
 
+  console.log(userSession);
+
   // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      email: "",
-      firstname: "",
-      lastname: "",
-      address: "",
+      email: userSession?.session?.user?.email,
+      firstname: userSession?.session?.user?.user_metadata?.first_name,
+      lastname: userSession?.session?.user?.user_metadata?.last_name,
+      address: userSession?.session?.user?.user_metadata?.address,
       password: "",
     },
   });
@@ -104,11 +105,11 @@ export function ProfileForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full py-4 grid gap-6"
       >
-        <FormField
+        {/* <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem className="grid grid-cols-2 px-6 items-center">
+            <FormItem className="grid md:md:grid-cols-2 px-6 items-center">
               <div className="form-description-container grid items-center">
                 <FormLabel className="text-semibold font-extrabold ">
                   Username
@@ -128,12 +129,12 @@ export function ProfileForm() {
             </FormItem>
           )}
         />
-        <Separator />
+        <Separator /> */}
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="grid grid-cols-2 px-6 items-center">
+            <FormItem className="grid md:grid-cols-2 px-6 items-center">
               <div className="form-description-container grid items-center">
                 <FormLabel className="text-semibold font-extrabold ">
                   Email
@@ -146,6 +147,7 @@ export function ProfileForm() {
                   {...field}
                   autoComplete="username"
                   className="h-12"
+                  readOnly
                 />
               </FormControl>
 
@@ -154,12 +156,12 @@ export function ProfileForm() {
           )}
         />
         <Separator />
-        <div className=" gap-2">
+        <div className="grid gap-2  gap-y-4 md:gap-y-0">
           <FormField
             control={form.control}
             name="firstname"
             render={({ field }) => (
-              <FormItem className="grid grid-cols-2 px-6 items-center">
+              <FormItem className="grid md:grid-cols-2 px-6 items-center">
                 <div className="form-description-container grid items-center">
                   <FormLabel className="text-semibold font-extrabold">
                     First Name
@@ -167,7 +169,12 @@ export function ProfileForm() {
                   <FormDescription> This is your first name.</FormDescription>
                 </div>
                 <FormControl>
-                  <Input placeholder="Juan" {...field} className="h-12" />
+                  <Input
+                    placeholder="Juan"
+                    {...field}
+                    className="h-12"
+                    readOnly
+                  />
                 </FormControl>
 
                 <FormMessage />
@@ -178,7 +185,7 @@ export function ProfileForm() {
             control={form.control}
             name="lastname"
             render={({ field }) => (
-              <FormItem className="grid grid-cols-2 px-6 items-center">
+              <FormItem className="grid md:grid-cols-2 px-6 items-center">
                 <div className="form-description-container grid items-center">
                   <FormLabel className="text-semibold font-extrabold">
                     Last Name
@@ -186,7 +193,12 @@ export function ProfileForm() {
                   <FormDescription> This is your last name.</FormDescription>
                 </div>
                 <FormControl>
-                  <Input placeholder="Dela Cruz" {...field} className="h-12" />
+                  <Input
+                    placeholder="Dela Cruz"
+                    {...field}
+                    className="h-12"
+                    readOnly
+                  />
                 </FormControl>
 
                 <FormMessage />
@@ -197,9 +209,9 @@ export function ProfileForm() {
         <Separator />
         <FormField
           control={form.control}
-          name="email"
+          name="address"
           render={({ field }) => (
-            <FormItem className="grid grid-cols-2 px-6 items-center">
+            <FormItem className="grid md:grid-cols-2 px-6 items-center">
               <div className="form-description-container grid items-center">
                 <FormLabel className="text-semibold font-extrabold ">
                   Address
@@ -215,6 +227,7 @@ export function ProfileForm() {
                   {...field}
                   autoComplete="address"
                   className="h-12"
+                  readOnly
                 />
               </FormControl>
 
@@ -222,7 +235,7 @@ export function ProfileForm() {
             </FormItem>
           )}
         />
-        <Separator />
+        {/* <Separator /> */}
       </form>
     </Form>
   );

@@ -11,7 +11,6 @@ import UserProfile from "../UserProfile/Profile";
 
 import Medications from "../Medications/Medications";
 import Staff from "../Staff/Staff";
-import MedicalRecords from "../MedicalRecords/MedicalRecords";
 export default function Dashboard() {
   let { page } = useParams();
   let content;
@@ -54,6 +53,7 @@ export default function Dashboard() {
       break;
     case "members":
       content = <Clients role={role} />;
+      break;
     case "profile":
       content = <UserProfile />;
       break;

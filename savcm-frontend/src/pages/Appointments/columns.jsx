@@ -2,8 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
+import DeleteAppointmentButton from "./DeleteAppointmentButton";
+import EditappointmentDialog from "./EditAppointmentDialog";
+import ViewAppointmentDialog from "./ViewAppointmentDialog";
 
-export const columns = [
+export const columns = (getData, data) => [
   {
     accessorKey: "id",
     header: ({ column }) => (
@@ -53,7 +56,7 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "reasonForVisit",
+    accessorKey: "reason_for_visit",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -77,7 +80,19 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "member_id",
+    accessorKey: "pet_id",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Pet
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
+  {
+    accessorKey: "pet.member.id",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -104,6 +119,8 @@ export const columns = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
+      const id = row.original.id;
+
       return (
         <div className="flex flex-row gap-2">
           {/* <ViewPetsDialog id={id} data={data} />
@@ -111,6 +128,12 @@ export const columns = [
           <EditPetDialog id={id} getData={getData} data={data} />
 
           <DeletePet id={id} getData={getData} /> */}
+
+          <ViewAppointmentDialog id={id} data={data} />
+
+          <EditappointmentDialog id={id} getData={getData} data={data} />
+
+          <DeleteAppointmentButton id={id} getData={getData} />
         </div>
       );
     },
