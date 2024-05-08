@@ -39,6 +39,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Tooltip,
   TooltipContent,
@@ -69,6 +70,7 @@ const formSchema = z.object({
   pet_id: z.string({
     required_error: "A pet is required.",
   }),
+  notes: z.string().optional(),
 });
 
 export default function EditappointmentDialog({ id, getData, data }) {
@@ -125,6 +127,7 @@ export default function EditappointmentDialog({ id, getData, data }) {
       veterinarian_id: appointment?.veterinarian_id,
       pet_id: appointment?.pet_id,
       appointment_id: appointment?.id,
+      notes: appointment?.notes,
     },
   });
 
@@ -320,6 +323,23 @@ export default function EditappointmentDialog({ id, getData, data }) {
                           <SelectItem value="Completed">Completed</SelectItem>
                         </SelectContent>
                       </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="notes"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Notes</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Enter notes for this appointment"
+                          className="resize-none"
+                          {...field}
+                        />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}

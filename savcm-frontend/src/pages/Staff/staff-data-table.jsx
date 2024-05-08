@@ -57,12 +57,10 @@ export function StaffDataTable({ columns, data, getData }) {
     <div className="">
       <div className="flex flex-grow flex-col md:flex-grow-0 md:flex-row min-w-full md:flex items-center gap-2 py-4 justify-between">
         <Input
-          placeholder="Filter specialization..."
-          value={table.getColumn("specialization")?.getFilterValue() || ""}
+          placeholder="Filter last name..."
+          value={table.getColumn("last_name")?.getFilterValue() || ""}
           onChange={(event) =>
-            table
-              .getColumn("specialization")
-              ?.setFilterValue(event.target.value)
+            table.getColumn("last_name")?.setFilterValue(event.target.value)
           }
           className="md:max-w-sm"
         />
