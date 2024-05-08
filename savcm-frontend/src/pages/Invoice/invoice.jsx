@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
-
+import InvoiceComputation from "./invoice-computation";
 async function getData() {
   return [
     {
@@ -44,6 +44,8 @@ export default function Invoice() {
         Invoice
       </h2>
       <DataTable columns={columns} data={data} />
+
+      <InvoiceComputation className="" />
     </div>
   );
 }
