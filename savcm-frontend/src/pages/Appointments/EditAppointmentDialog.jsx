@@ -39,6 +39,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Tooltip,
   TooltipContent,
@@ -69,6 +70,7 @@ const formSchema = z.object({
   pet_id: z.string({
     required_error: "A pet is required.",
   }),
+  notes: z.string().optional(),
 });
 
 export default function EditappointmentDialog({ id, getData, data }) {
@@ -124,6 +126,8 @@ export default function EditappointmentDialog({ id, getData, data }) {
       status: appointment?.status,
       veterinarian_id: appointment?.veterinarian_id,
       pet_id: appointment?.pet_id,
+      appointment_id: appointment?.id,
+      notes: appointment?.notes,
     },
   });
 
@@ -192,6 +196,25 @@ export default function EditappointmentDialog({ id, getData, data }) {
               className="space-y-3 border md:border-0 p-4 md:p-0 rounded-lg"
             >
               <div className="grid gap-y-2">
+                {" "}
+                <FormField
+                  control={form.control}
+                  name="appointment_id"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Appointment ID</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="View the ID of the appointment ID of this appointment"
+                          {...field}
+                          readOnly
+                          disabled
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="date"
@@ -262,7 +285,6 @@ export default function EditappointmentDialog({ id, getData, data }) {
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="reason_for_visit"
@@ -279,7 +301,6 @@ export default function EditappointmentDialog({ id, getData, data }) {
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="status"
@@ -306,7 +327,23 @@ export default function EditappointmentDialog({ id, getData, data }) {
                     </FormItem>
                   )}
                 />
-
+                <FormField
+                  control={form.control}
+                  name="notes"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Notes</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Enter notes for this appointment"
+                          className="resize-none"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="pet_id"

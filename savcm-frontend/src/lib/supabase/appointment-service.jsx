@@ -19,6 +19,7 @@ export async function createAppointment(data) {
       time: data.time,
       status: data.status,
       reason_for_visit: data.reason_for_visit,
+      notes: data.notes,
     },
   ]);
 
@@ -65,6 +66,7 @@ export async function updateAppointment(id, data) {
     time: data.time,
     status: data.status,
     reason_for_visit: data.reason_for_visit,
+    notes: data.notes,
   };
 
   const updateResult = await supabase

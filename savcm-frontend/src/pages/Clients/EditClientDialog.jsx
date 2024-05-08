@@ -128,12 +128,13 @@ export default function EditClientsDialog({ id, getData, data }) {
       role: user?.role,
       status: user?.status,
       specialization: user?.member?.specialization,
+      member_id: user?.member?.id,
     },
   });
 
-  async function onSubmit(event, values) {
-    event.preventDefault(); // Prevent the default form submission behavior
-    // console.log("onSubmit called with values:", values);
+  async function onSubmit(values) {
+    // event.preventDefault(); // Prevent the default form submission behavior
+    // // console.log("onSubmit called with values:", values);
     setLoading(true);
     // console.log(values);
 
@@ -142,9 +143,9 @@ export default function EditClientsDialog({ id, getData, data }) {
       const parsedResult = JSON.parse(result);
 
       if (parsedResult.error) {
-        console.error("Error updating client:", parsedResult.error);
+        console.error("Error updating members:", parsedResult.error);
         toast({
-          title: "Error updating client",
+          title: "Error updating members",
           description: parsedResult.error,
           status: "error",
         });
@@ -187,9 +188,9 @@ export default function EditClientsDialog({ id, getData, data }) {
 
       <DialogContent className="max-w-[425px] lg:min-w-[750px]">
         <DialogHeader>
-          <DialogTitle>Edit Client</DialogTitle>
+          <DialogTitle>Edit Member</DialogTitle>
           <DialogDescription>
-            Fill in the form below to edit a client's record.
+            Fill in the form below to edit a members's record.
           </DialogDescription>
         </DialogHeader>
         <div className="">
@@ -200,6 +201,24 @@ export default function EditClientsDialog({ id, getData, data }) {
             >
               <div className="grid lg:grid-cols-2 gap-2">
                 <div className="grid gap-y-2">
+                  <FormField
+                    control={form.control}
+                    name="member_id"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Member ID</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="View the ID of the member"
+                            {...field}
+                            readOnly
+                            disabled
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   <FormField
                     control={form.control}
                     name="email"
@@ -368,12 +387,12 @@ export default function EditClientsDialog({ id, getData, data }) {
                 <div className="button-container pt-2">
                   {!loading ? (
                     <Button type="submit" className="w-full">
-                      Edit Client
+                      Edit Member
                     </Button>
                   ) : (
                     <Button disabled className="w-full">
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Editing client...
+                      Editing members...
                     </Button>
                   )}
                 </div>

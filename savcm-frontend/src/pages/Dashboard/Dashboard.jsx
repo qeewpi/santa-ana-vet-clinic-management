@@ -60,7 +60,7 @@ export default function Dashboard() {
     case "profile":
       content = <UserProfile />;
       break;
-    case "staff":
+    case "veterinarians":
       content = <Staff />;
       break;
     case "services":

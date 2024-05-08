@@ -33,6 +33,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -109,6 +116,7 @@ export default function EditPetDialog({ id, getData, data }) {
       birthdate: pet?.birthdate,
       gender: pet?.gender,
       memberId: pet?.member_id,
+      pet_id: pet?.id,
     },
   });
 
@@ -178,6 +186,24 @@ export default function EditPetDialog({ id, getData, data }) {
               onSubmit={form.handleSubmit(onSubmit)}
             >
               <div className="grid gap-y-2">
+                <FormField
+                  control={form.control}
+                  name="pet_id"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Pet ID</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="View the ID of the pet"
+                          {...field}
+                          readOnly
+                          disabled
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="memberId"
@@ -291,9 +317,21 @@ export default function EditPetDialog({ id, getData, data }) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Gender</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter pet's gender" {...field} />
-                      </FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select the pet's gender" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="male">Male</SelectItem>
+                          <SelectItem value="female">Female</SelectItem>
+                        </SelectContent>
+                      </Select>
+
                       <FormMessage />
                     </FormItem>
                   )}

@@ -1,7 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, Delete, Edit, Eye } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
+import DeleteMedicationDialog from "./DeleteMedicationDialog";
+import EditMedicationsDialog from "./EditMedicationsDialog";
+import ViewMedicationsDialog from "./ViewMedicationsDialog";
 
 export const columns = (getData, data) => [
   {
@@ -84,9 +87,9 @@ export const columns = (getData, data) => [
 
       return (
         <div className="flex flex-row gap-2">
-          <Eye className="h-5 w-5" />
-          <Edit className="h-5 w-5" />
-          <Delete className="h-5 w-5" />
+          <ViewMedicationsDialog id={id} data={data} />
+          <EditMedicationsDialog id={id} getData={getData} data={data} />
+          <DeleteMedicationDialog id={id} getData={getData} />
         </div>
       );
     },

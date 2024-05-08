@@ -70,7 +70,7 @@ const commands = {
         icon: Users,
         label: "Members",
       },
-      { icon: BriefcaseMedical, label: "Staff", shortcut: "⌘S" },
+      { icon: BriefcaseMedical, label: "Veterinarians" },
       { icon: Briefcase, label: "Services", to: "/services" },
       { icon: Pill, label: "Medications", to: "/medications" },
     ],

@@ -23,6 +23,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { toast } from "@/components/ui/use-toast";
 
 import {
   Tooltip,
@@ -30,6 +31,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { updateMedication } from "@/lib/supabase/medications-service";
 import { Eye } from "lucide-react";
 import React, { useState, useTransition } from "react";
 
@@ -41,93 +43,143 @@ const formSchema = z.object({
     })
     .max(50, {
       message: "Name must be at most 50 characters.",
+    }),
+  description: z
+    .string()
+    .min(2, {
+      message: "Description must be at least 2 characters.",
     })
-    .optional(),
-  species: z
+    .max(50, {
+      message: "Description must be at most 50 characters.",
+    }),
+  unit_price: z
     .string()
-    .min(2, { message: "Species must be at least 2 characters." })
-    .max(50, { message: "Species must be at most 50 characters." })
-    .optional(),
-  breed: z
+    .min(2, {
+      message: "Price must be at least 2 characters.",
+    })
+    .max(50, {
+      message: "Price must be at most 50 characters.",
+    }),
+  dosage_form: z
     .string()
-    .min(2, { message: "Breed must be at least 2 characters." })
-    .max(50, { message: "Breed must be at most 50 characters." })
-    .optional(),
-  color: z
-    .string()
-    .min(2, { message: "Color must be at least 2 characters." })
-    .max(50, { message: "Color must be at most 50 characters." })
-    .optional(),
-  birthdate: z.date().nullable(),
-  gender: z
-    .string()
-    .min(2, { message: "Gender must be at least 2 characters." })
-    .max(20, { message: "Gender must be at most 20 characters." })
-    .optional(),
+    .min(2, {
+      message: "Price must be at least 2 characters.",
+    })
+    .max(50, {
+      message: "Price must be at most 50 characters.",
+    }),
 });
 
-export default function ViewPetsDialog({ id, data }) {
+export default function ViewMedicationsDialog({ id, getData, data }) {
   let navigate = useNavigate();
+  // console.log(data);
+  // console.log(id);
 
   const [isPending, startTransition] = useTransition();
+
   const [loading, setLoading] = useState(false);
+
   const [open, setOpen] = useState(false);
-
-  const pet = Array.isArray(data) ? data.find((pet) => pet.id === id) : null;
-
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: pet?.name,
-      species: pet?.species,
-      breed: pet?.breed,
-      color: pet?.color,
-      birthdate: pet?.birthdate,
-      gender: pet?.gender,
-      pet_id: pet?.id,
-    },
-  });
 
   const resetForm = () => {
     form.reset();
   };
 
+  // Find the user with the matching id
+  // console.log(data);
+  const medication = Array.isArray(data)
+    ? data.find((medication) => medication.id === id)
+    : null;
+  // console.log(pet);
+
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      medicationId: medication.id,
+      name: medication.name,
+      description: medication.description,
+      unit_price: medication?.unit_price.toString(),
+      dosage_form: medication?.dosage_form,
+    },
+  });
+
+  async function onSubmit(values) {
+    // console.log("onSubmit called with values:", values);
+    setLoading(true);
+    console.log(values);
+
+    startTransition(async () => {
+      const result = await updateMedication(id, values);
+      const parsedResult = JSON.parse(result);
+
+      if (parsedResult.error) {
+        console.error("Error updating medication:", parsedResult.error);
+        toast({
+          title: "Error updating medication",
+          description: parsedResult.error,
+          status: "error",
+        });
+      } else {
+        toast({
+          title: "You submitted the following values:",
+          description: (
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              <code className="text-white">
+                {JSON.stringify(values, null, 2)}
+              </code>
+            </pre>
+          ),
+        });
+        setOpen(false); // close the dialog
+
+        getData();
+
+        resetForm(); // clear the form
+      }
+
+      setLoading(false);
+    });
+  }
+
   return (
     <Dialog isOpen={open} onOpenChange={setOpen}>
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger>
-            <DialogTrigger asChild>
+          <DialogTrigger asChild>
+            <TooltipTrigger>
               <Button variant="outline" size="smallerIcon">
                 <Eye className="h-4 w-4"></Eye>
               </Button>
-            </DialogTrigger>
-          </TooltipTrigger>
+            </TooltipTrigger>
+          </DialogTrigger>
           <TooltipContent>View</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-
       <DialogContent className="max-w-[425px] lg:min-w-[750px]">
         <DialogHeader>
-          <DialogTitle>View Pet</DialogTitle>
-          <DialogDescription>View the pet's record below.</DialogDescription>
+          <DialogTitle>View Medication</DialogTitle>
+          <DialogDescription>
+            Fill in the form below to view a medication's record.
+          </DialogDescription>
         </DialogHeader>
         <div className="">
           <Form {...form}>
-            <form className="space-y-3 border md:border-0 p-4 md:p-0 rounded-lg">
+            <form
+              className="space-y-3 border md:border-0 p-4 md:p-0 rounded-lg"
+              onSubmit={form.handleSubmit(onSubmit)}
+            >
               <div className="grid gap-y-2">
                 <FormField
                   control={form.control}
-                  name="pet_id"
+                  name="medicationId"
+                  disabled
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Pet ID</FormLabel>
+                      <FormLabel>Medication ID</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="View the ID of the pet"
+                          placeholder="Enter the medication's ID"
                           {...field}
-                          readOnly
-                          disabled
                         />
                       </FormControl>
                       <FormMessage />
@@ -142,97 +194,49 @@ export default function ViewPetsDialog({ id, data }) {
                       <FormLabel>Name</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Enter pet's name"
-                          {...field}
+                          placeholder="Enter the name of the medication"
                           readOnly
+                          {...field}
                         />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
-                  name="species"
+                  name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Species</FormLabel>
+                      <FormLabel>Description</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Enter pet's species"
-                          {...field}
+                          placeholder="Enter the description of the medication"
                           readOnly
+                          {...field}
                         />
                       </FormControl>
+
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
-                  name="breed"
+                  name="unit_price"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Breed</FormLabel>
+                      <FormLabel>Price</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Enter pet's breed"
-                          {...field}
+                          placeholder="Enter the unit price of the medication"
                           readOnly
+                          {...field}
                         />
                       </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="color"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Color</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter pet's color"
-                          {...field}
-                          readOnly
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="birthdate"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Birthdate</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="date"
-                          placeholder="Select pet's birthdate"
-                          {...field}
-                          readOnly
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="gender"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Gender</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter pet's gender"
-                          {...field}
-                          readOnly
-                        />
-                      </FormControl>
+
                       <FormMessage />
                     </FormItem>
                   )}

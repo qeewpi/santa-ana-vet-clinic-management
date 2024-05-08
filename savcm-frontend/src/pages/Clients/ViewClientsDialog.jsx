@@ -86,7 +86,7 @@ const formSchema = z.object({
   specialization: z.string().optional(),
 });
 
-export default function ViewClientsDialog({ id, data }) {
+export default function ViewMembersDialog({ id, data }) {
   let navigate = useNavigate();
 
   const [isPending, startTransition] = useTransition();
@@ -113,6 +113,7 @@ export default function ViewClientsDialog({ id, data }) {
       role: user?.role,
       status: user?.status,
       specialization: user?.member?.specialization,
+      member_id: user?.member?.id,
     },
   });
 
@@ -134,14 +135,32 @@ export default function ViewClientsDialog({ id, data }) {
 
       <DialogContent className="max-w-[425px] lg:min-w-[750px]">
         <DialogHeader>
-          <DialogTitle>View Client</DialogTitle>
-          <DialogDescription>View the client's record below.</DialogDescription>
+          <DialogTitle>View Member</DialogTitle>
+          <DialogDescription>View the member's record below.</DialogDescription>
         </DialogHeader>
         <div className="">
           <Form {...form}>
             <form className="space-y-3 border md:border-0 p-4 md:p-0 rounded-lg">
               <div className="grid lg:grid-cols-2 gap-2">
                 <div className="grid gap-y-2">
+                  <FormField
+                    control={form.control}
+                    name="member_id"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Member ID</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="View the ID of the member"
+                            {...field}
+                            readOnly
+                            disabled
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   <FormField
                     control={form.control}
                     name="email"

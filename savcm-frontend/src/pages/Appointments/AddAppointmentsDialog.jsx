@@ -44,6 +44,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { createAppointment } from "../../lib/supabase/appointment-service";
 
 const formSchema = z.object({
@@ -65,6 +66,7 @@ const formSchema = z.object({
   pet_id: z.string({
     required_error: "A pet is required.",
   }),
+  notes: z.string().optional(),
 });
 
 export default function AddAppointmentsDialog(props) {
@@ -90,6 +92,7 @@ export default function AddAppointmentsDialog(props) {
       status: "",
       veterinarian_id: "",
       pet_id: "",
+      notes: "",
     },
   });
 
@@ -268,6 +271,24 @@ export default function AddAppointmentsDialog(props) {
                           <SelectItem value="Completed">Completed</SelectItem>
                         </SelectContent>
                       </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="notes"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Notes</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Enter notes for this appointment"
+                          className="resize-none"
+                          {...field}
+                        />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}

@@ -157,12 +157,12 @@ export default function AddClientsDialog(props) {
     <Dialog isOpen={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="" className="w-full overflow-hidden md:w-auto">
-          Add Client
+          Add Member
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[425px] lg:min-w-[750px]">
         <DialogHeader>
-          <DialogTitle>Add Client</DialogTitle>
+          <DialogTitle>Add Member</DialogTitle>
           <DialogDescription>
             Fill in the form below to add a new client.
           </DialogDescription>
