@@ -1,26 +1,31 @@
 import { useEffect, useState } from "react";
 import { columns } from "./medications-columns";
 import { MedicationsDataTable } from "./medications-data-table";
-
-async function getData() {
-  // Fetch data from your API here.
-  return [
-    {
-      medicationId: "1",
-      name: "Amoxicillin",
-      description: "Monthly preventative",
-      unitPrice: "5.00",
-      dosageForm: "Chewable",
-    },
-
-    // ...
-  ];
-}
+import { getMedications } from "@/lib/supabase/medications-service";
 
 export default function Medications() {
   const [data, setData] = useState([]);
+
+  const getData = async () => {
+    const medications = await getMedications();
+    // only parse and set data when it returns a non-empty response
+    if (medications && medications !== "") {
+      const parsedMedications = JSON.parse(medications);
+      [parsedMedications].forEach((medication) => {
+        if (medication.birthdate && medication.created_at) {
+          medication.birthdate = new Date(medication.birthdate).toDateString();
+          medication.created_at = new Date(
+            medication.created_at
+          ).toDateString();
+        }
+      });
+      setData(parsedMedications);
+    }
+  };
+
   useEffect(() => {
-    getData().then((data) => setData(data));
+    // Call getData directly here, no need for async arrow function
+    getData();
   }, []);
 
   return (
