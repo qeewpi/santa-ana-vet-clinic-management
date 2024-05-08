@@ -1,11 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, Edit, Eye } from "lucide-react";
-import { handleEdit, handleView } from "./actions";
+import { ArrowUpDown } from "lucide-react";
+import EditClientsDialog from "./EditClientDialog";
+import ViewClientsDialog from "./ViewClientsDialog";
 import DeleteButton from "./delete";
 
-export const columns = (getData) => [
+export const columns = (getData, data) => [
   {
     accessorKey: "member_id",
     header: ({ column }) => (
@@ -26,6 +27,18 @@ export const columns = (getData) => [
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
         Created At
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
+  {
+    accessorKey: "member.email",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Email
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -107,23 +120,14 @@ export const columns = (getData) => [
     header: "Actions",
     cell: ({ row }) => {
       const id = row.original.member_id;
-      // console.log(id);
 
       return (
         <div className="flex flex-row gap-2">
-          <Eye
-            className="h-5 w-5"
-            onClick={() => {
-              handleView(id);
-            }}
-          />
-          <Edit
-            className="h-5 w-5"
-            onClick={() => {
-              handleEdit(id);
-            }}
-          />
-          <DeleteButton id={id} getData={getData}/>
+          <ViewClientsDialog id={id} data={data} />
+
+          <EditClientsDialog id={id} getData={getData} data={data} />
+
+          <DeleteButton id={id} getData={getData} />
         </div>
       );
     },

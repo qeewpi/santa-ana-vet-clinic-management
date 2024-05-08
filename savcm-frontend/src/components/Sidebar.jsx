@@ -75,7 +75,7 @@ const commands = {
       },
       {
         icon: Users,
-        label: "Clients",
+        label: "Members",
       },
       { icon: BriefcaseMedical, label: "Staff", shortcut: "⌘S" },
       { icon: Briefcase, label: "Services", to: "/services" },

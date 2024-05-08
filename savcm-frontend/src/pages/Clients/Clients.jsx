@@ -31,9 +31,13 @@ export default function Clients() {
   return (
     <div className="min-w-full px-[2rem] py-[2rem]">
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-        Clients
+        Members
       </h2>
-      <DataTable columns={columns(getData)} data={data} getData={getData} />
+      <DataTable
+        columns={columns(getData, data)}
+        data={data}
+        getData={getData}
+      />
     </div>
   );
 }

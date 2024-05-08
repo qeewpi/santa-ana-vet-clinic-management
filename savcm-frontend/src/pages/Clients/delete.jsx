@@ -19,7 +19,11 @@ export default function DeleteButton({ id, getData }) {
   const { toast } = useToast();
 
   async function handleDelete(id) {
-    console.log(id);
+    // console.log(id);
+    toast({
+      title: "Deleting user",
+      description: `Please wait while we delete the user with id: ${id}`,
+    });
 
     const result = await deleteMemberById(id);
     const jsonResult = JSON.parse(result);
@@ -35,7 +39,7 @@ export default function DeleteButton({ id, getData }) {
       toast({
         variant: "success",
         title: "Success!",
-        description: `Delete client with id: ${id}`,
+        description: `Deleted client with id: ${id}`,
         // description: (
         //   <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
         //     <code className="text-white">`Deleted client with id: ${id}`</code>
