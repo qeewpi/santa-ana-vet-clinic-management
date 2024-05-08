@@ -24,17 +24,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { toast } from "@/components/ui/use-toast";
 import { createVeterinarian } from "@/lib/supabase/veterinarian-service";
-import { cn } from "@/lib/utils";
-import { format } from "date-fns";
-import { CalendarIcon, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import React, { useState, useTransition } from "react";
 
 const formSchema = z.object({
@@ -70,7 +62,6 @@ export default function AddStaffDialog(props) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
       first_name: "",
       last_name: "",
       specialization: "",
@@ -83,9 +74,8 @@ export default function AddStaffDialog(props) {
     setLoading(true);
 
     const staffData = {
-      name: values.name,
-      first_name: values.firstname,
-      last_name: values.lastname,
+      first_name: values.first_name,
+      last_name: values.last_name,
       specialization: values.specialization,
     };
 

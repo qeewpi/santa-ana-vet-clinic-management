@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, Delete, Edit, Eye } from "lucide-react";
 
-export const columns = [
+export const columns = (getData, data) => [
   {
     accessorKey: "id",
     header: ({ column }) => (
@@ -80,7 +80,7 @@ export const columns = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const payment = row.original;
+      const id = row.original.id;
 
       return (
         <div className="flex flex-row gap-2">

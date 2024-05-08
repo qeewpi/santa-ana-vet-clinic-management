@@ -1,8 +1,7 @@
+import { getVeterinarians } from "@/lib/supabase/veterinarian-service";
 import { useEffect, useState } from "react";
 import { columns } from "./staff-columns";
 import { StaffDataTable } from "./staff-data-table";
-import { Lasso } from "lucide-react";
-import { getVeterinarians } from "@/lib/supabase/veterinarian-service";
 
 export default function Staff() {
   const [data, setData] = useState([]);
@@ -36,7 +35,11 @@ export default function Staff() {
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
         Veterinarian
       </h2>
-      <StaffDataTable columns={columns} data={data} />
+      <StaffDataTable
+        columns={columns(getData, data)}
+        data={data}
+        getData={getData}
+      />
     </div>
   );
 }

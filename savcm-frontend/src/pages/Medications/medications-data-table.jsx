@@ -28,8 +28,10 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import AddMedicationsDialog from "./AddMedicationsDialog";
 
-export function MedicationsDataTable({ columns, data }) {
+export function MedicationsDataTable({ columns, data, getData, role }) {
+  // console.log("Received data in PetDataTable:", data); // Add this line to log the received data
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -52,42 +54,50 @@ export function MedicationsDataTable({ columns, data }) {
   });
 
   return (
-    <div>
-      <div className="flex items-center py-4">
+    <div className="">
+      <div className="flex flex-grow flex-col md:flex-grow-0 md:flex-row min-w-full md:flex items-center gap-2 py-4 justify-between">
         <Input
           placeholder="Filter name..."
           value={table.getColumn("name")?.getFilterValue() || ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="md:max-w-sm"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="grid md:grid-cols-2 w-full md:w-auto gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="ml-auto w-full md:w-auto overflow-hidden"
+              >
+                Columns
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <div className="button-div">
+            <AddMedicationsDialog getData={getData} />
+          </div>
+        </div>
       </div>
       <div className="rounded-md border">
         <Table>
