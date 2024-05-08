@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Appointments from "../Appointments/Appointments";
 import Clients from "../Clients/Clients";
-import Pets from "../Pets/Pets";
-import UserProfile from "../UserProfile/Profile";
 import Invoice from "../Invoice/invoice";
+import Pets from "../Pets/Pets";
 import Service from "../Services/Services";
+import UserProfile from "../UserProfile/Profile";
+
 import Medications from "../Medications/Medications";
 import Staff from "../Staff/Staff";
 import MedicalRecords from "../MedicalRecords/MedicalRecords";
@@ -51,6 +52,8 @@ export default function Dashboard() {
     case "pets":
       content = <Pets />;
       break;
+    case "members":
+      content = <Clients role={role} />;
     case "profile":
       content = <UserProfile />;
       break;

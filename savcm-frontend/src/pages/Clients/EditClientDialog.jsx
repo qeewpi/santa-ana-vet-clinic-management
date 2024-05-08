@@ -16,6 +16,13 @@ import {
 import { Input } from "@/components/ui/input";
 
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+import {
   Form,
   FormControl,
   FormField,
@@ -124,10 +131,11 @@ export default function EditClientsDialog({ id, getData, data }) {
     },
   });
 
-  async function onSubmit(values) {
-    console.log("onSubmit called with values:", values);
+  async function onSubmit(event, values) {
+    event.preventDefault(); // Prevent the default form submission behavior
+    // console.log("onSubmit called with values:", values);
     setLoading(true);
-    console.log(values);
+    // console.log(values);
 
     startTransition(async () => {
       const result = await updateMember(id, values);
@@ -164,11 +172,19 @@ export default function EditClientsDialog({ id, getData, data }) {
 
   return (
     <Dialog isOpen={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="smallerIcon">
-          <Edit className="h-4 w-4"></Edit>
-        </Button>
-      </DialogTrigger>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="smallerIcon">
+                <Edit className="h-4 w-4"></Edit>
+              </Button>
+            </DialogTrigger>
+          </TooltipTrigger>
+          <TooltipContent>Edit</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+
       <DialogContent className="max-w-[425px] lg:min-w-[750px]">
         <DialogHeader>
           <DialogTitle>Edit Client</DialogTitle>

@@ -1,44 +1,29 @@
+import { getPets } from "@/lib/supabase/pet-service";
 import { useEffect, useState } from "react";
 import { columns } from "./pet-columns";
 import { PetDataTable } from "./pet-data-table";
-async function getData() {
-  // Fetch data from your API here.
-  return [
-    {
-      appointmentId: "A1234",
-      memberId: "M001",
-      name: "Buddy",
-      species: "Dog",
-      breed: "Golden Retriever",
-      color: "Golden",
-      birthdate: "2018-01-01",
-    },
-    {
-      appointmentId: "B5678",
-      memberId: "M002",
-      name: "Rover",
-      species: "Dog",
-      breed: "German Shepard",
-      color: "black/brown",
-      birthdate: "2019-01-01",
-    },
-    {
-      appointmentId: "C9101",
-      memberId: "M003",
-      name: "Morgana",
-      species: "Cat",
-      breed: "Persian",
-      color: "Calico",
-      birthdate: "2020-01-01",
-    },
-    // ...
-  ];
-}
 
 export default function Pets() {
   const [data, setData] = useState([]);
+
+  const getData = async () => {
+    const pets = await getPets();
+    // only parse and set data when it returns a non-empty response
+    if (pets && pets !== "") {
+      const parsedPets = JSON.parse(pets);
+      parsedPets.forEach((pet) => {
+        if (pet.birthdate && pet.created_at) {
+          pet.birthdate = new Date(pet.birthdate).toDateString();
+          pet.created_at = new Date(pet.created_at).toDateString();
+        }
+      });
+      setData(parsedPets);
+    }
+  };
+
   useEffect(() => {
-    getData().then((data) => setData(data));
+    // Call getData directly here, no need for async arrow function
+    getData();
   }, []);
 
   return (
@@ -46,7 +31,11 @@ export default function Pets() {
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
         Pets
       </h2>
-      <PetDataTable columns={columns} data={data} />
+      <PetDataTable
+        columns={columns(getData, data)}
+        data={data}
+        getData={getData}
+      />
     </div>
   );
 }

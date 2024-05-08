@@ -127,8 +127,6 @@ export async function updateMember(id, data) {
     }
 
     return JSON.stringify(permissionResult);
-
-    return JSON.stringify(permissionResult);
   }
 }
 
