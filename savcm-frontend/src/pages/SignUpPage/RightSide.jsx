@@ -1,6 +1,11 @@
 import React from "react";
 import { CalendarDays, ShieldCheck } from "lucide-react";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import catAndDogImage from "@/assets/images/cats-and-dogs.png";
 import { useTheme } from "@/components/ui/theme-provider";
 const App = () => {
@@ -22,19 +27,21 @@ function RightSide() {
           Simplify Your Pet Care Experience with Our App
         </h1>
         <p className="leading-7 [&:not(:first-child)]:mt-6">
-          Take the stress out of caring for your furry friend with our all-in-one pet care app.
+          Take the stress out of caring for your furry friend with our
+          all-in-one pet care app.
         </p>
       </div>
       <div className="px-12">
         <div className="benefit transform transition-transform duration-300 ease-in-out hover:scale-105">
           <Card>
             <div className="flex justify-center items-center mt-6">
-              <CalendarDays className="w-12 h-12" /> 
+              <CalendarDays className="w-12 h-12" />
             </div>
             <CardHeader>
               <CardTitle>Easy Appointment Scheduling</CardTitle>
               <CardDescription>
-                Schedule vet visits, grooming sessions, and dog walking services – all in one place, anytime.
+                Schedule vet visits, grooming sessions, and dog walking services
+                – all in one place, anytime.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -47,7 +54,8 @@ function RightSide() {
             <CardHeader>
               <CardTitle>Secure Access to Pet Records</CardTitle>
               <CardDescription>
-                Keep track of your pet's vaccination history, medications, and medical notes – all organized and readily available.
+                Keep track of your pet's vaccination history, medications, and
+                medical notes – all organized and readily available.
               </CardDescription>
             </CardHeader>
           </Card>
