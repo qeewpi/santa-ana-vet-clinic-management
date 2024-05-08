@@ -6,7 +6,7 @@ import Appointments from "../Appointments/Appointments";
 import Clients from "../Clients/Clients";
 import Pets from "../Pets/Pets";
 import UserProfile from "../UserProfile/Profile";
-import Billing from "../Billing/Billing";
+import Invoice from "../Invoice/invoice";
 
 export default function Dashboard() {
   let { page } = useParams();
@@ -33,8 +33,8 @@ export default function Dashboard() {
   }, [role]);
 
   switch (page) {
-    case "billing":
-      content = <Billing />;
+    case "invoice":
+      content = <Invoice />;
       break;
     case "profile":
       content = <UserProfile />;
