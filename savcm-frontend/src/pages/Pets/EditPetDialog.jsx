@@ -109,6 +109,7 @@ export default function EditPetDialog({ id, getData, data }) {
       birthdate: pet?.birthdate,
       gender: pet?.gender,
       memberId: pet?.member_id,
+      pet_id: pet?.id,
     },
   });
 
@@ -178,6 +179,24 @@ export default function EditPetDialog({ id, getData, data }) {
               onSubmit={form.handleSubmit(onSubmit)}
             >
               <div className="grid gap-y-2">
+                <FormField
+                  control={form.control}
+                  name="pet_id"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Pet ID</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="View the ID of the pet"
+                          {...field}
+                          readOnly
+                          disabled
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="memberId"

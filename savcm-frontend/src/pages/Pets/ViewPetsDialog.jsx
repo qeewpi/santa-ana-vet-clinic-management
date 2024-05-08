@@ -84,6 +84,7 @@ export default function ViewPetsDialog({ id, data }) {
       color: pet?.color,
       birthdate: pet?.birthdate,
       gender: pet?.gender,
+      pet_id: pet?.id,
     },
   });
 
@@ -115,6 +116,24 @@ export default function ViewPetsDialog({ id, data }) {
           <Form {...form}>
             <form className="space-y-3 border md:border-0 p-4 md:p-0 rounded-lg">
               <div className="grid gap-y-2">
+                <FormField
+                  control={form.control}
+                  name="pet_id"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Pet ID</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="View the ID of the pet"
+                          {...field}
+                          readOnly
+                          disabled
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="name"

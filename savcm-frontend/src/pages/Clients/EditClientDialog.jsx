@@ -128,6 +128,7 @@ export default function EditClientsDialog({ id, getData, data }) {
       role: user?.role,
       status: user?.status,
       specialization: user?.member?.specialization,
+      member_id: user?.member?.id,
     },
   });
 
@@ -200,6 +201,24 @@ export default function EditClientsDialog({ id, getData, data }) {
             >
               <div className="grid lg:grid-cols-2 gap-2">
                 <div className="grid gap-y-2">
+                  <FormField
+                    control={form.control}
+                    name="member_id"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Member ID</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="View the ID of the member"
+                            {...field}
+                            readOnly
+                            disabled
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   <FormField
                     control={form.control}
                     name="email"
