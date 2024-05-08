@@ -31,7 +31,7 @@ export default function Medications() {
   return (
     <div className="min-w-full px-[2rem] py-[2rem]">
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-        Medications
+        Veterinarian
       </h2>
       <MedicationsDataTable columns={columns} data={data} />
     </div>
