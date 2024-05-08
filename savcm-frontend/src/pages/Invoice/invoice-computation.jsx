@@ -23,11 +23,11 @@ import { Button } from "@/components/ui/button";
 const InvoiceComputation = () => {
   const [rows, setRows] = useState([
     {
-      type: "",
-      description: "",
-      quantity: "",
-      rate: "",
-      totalPrice: "",
+      type: " ",
+      description: " ",
+      quantity: " ",
+      rate: " ",
+      totalPrice: " ",
     },
   ]);
 
@@ -35,15 +35,41 @@ const InvoiceComputation = () => {
     setRows([
       ...rows,
       {
-        type: "",
-        description: "",
+        type: " ",
+        description: " ",
         quantity: "",
         rate: "",
         totalPrice: "",
       },
     ]);
   };
+  const [quantity, setQuantity] = useState(0);
+  const [rate, setRate] = useState(0);
+  const [totalSum, setTotalSum] = useState(0);
 
+  const calculateTotalSum = () => {
+    const sum = rows.reduce((total, row) => total + Number(row.totalPrice), 0);
+    setTotalSum(sum);
+  };
+
+  const handleQuantityChange = (e) => {
+    setQuantity(e.target.value);
+  };
+
+  const handleRateChange = (e) => {
+    setRate(e.target.value);
+  };
+
+  const handleInputChange = (e, index, field) => {
+    const newRows = [...rows];
+    newRows[index][field] = e.target.value;
+
+    if (field === "quantity" || field === "rate") {
+      newRows[index].totalPrice = newRows[index].quantity * newRows[index].rate;
+    }
+
+    setRows(newRows);
+  };
   return (
     <div className="min-w-full min-h-screen ">
       <div className="flex "></div>
@@ -77,12 +103,26 @@ const InvoiceComputation = () => {
                 </SelectContent>
               </Select>
               <Input className="flex-1" type="text" placeholder="Description" />
-              <Input className="flex-1" type="number" placeholder="Quantity" />
-              <Input className="flex-1" type="number" placeholder="Rate" />
+              <Input
+                className="flex-1"
+                type="number"
+                placeholder="Quantity"
+                value={row.quantity}
+                onChange={(e) => handleInputChange(e, index, "quantity")}
+              />
+              <Input
+                className="flex-1"
+                type="number"
+                placeholder="Rate"
+                value={row.rate}
+                onChange={(e) => handleInputChange(e, index, "rate")}
+              />
               <Input
                 className="flex-1"
                 type="number"
                 placeholder="Total Price"
+                value={row.totalPrice}
+                readOnly
               />
             </div>
           ))}
@@ -92,9 +132,14 @@ const InvoiceComputation = () => {
           </Button>
         </CardContent>{" "}
         <Separator />
-        <CardFooter>
-          <Button className="mx-4 my-4 w-1/4">Calculate</Button>{" "}
-        </CardFooter>
+        <div className="flex justify-between items-center mx-8 my-8">
+          <Button onClick={calculateTotalSum} className="px-4 py-2">
+            Calculate
+          </Button>
+          <div className="ml-auto">
+            <p className="">Total: {totalSum}</p>
+          </div>
+        </div>
       </Card>
     </div>
   );
