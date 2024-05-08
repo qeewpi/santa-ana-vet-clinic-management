@@ -56,10 +56,10 @@ export function DataTable({ columns, data, getData }) {
     <div className="">
       <div className="flex flex-grow flex-col md:flex-grow-0 md:flex-row min-w-full md:flex items-center gap-2 py-4 justify-between">
         <Input
-          placeholder="Filter status..."
-          value={table.getColumn("status")?.getFilterValue() || ""}
+          placeholder="Filter role..."
+          value={table.getColumn("role")?.getFilterValue() || ""}
           onChange={(event) =>
-            table.getColumn("status")?.setFilterValue(event.target.value)
+            table.getColumn("role")?.setFilterValue(event.target.value)
           }
           className="md:max-w-sm"
         />
