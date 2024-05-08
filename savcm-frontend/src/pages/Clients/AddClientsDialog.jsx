@@ -33,6 +33,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { createMember } from "@/lib/supabase/member-service";
 import { Loader2 } from "lucide-react";
 import React, { useState, useTransition } from "react";
 
@@ -79,7 +80,7 @@ const formSchema = z.object({
   specialization: z.string().optional(),
 });
 
-export default function AddClientsDialog({ refreshData }) {
+export default function AddClientsDialog(props) {
   let navigate = useNavigate();
 
   const [isPending, startTransition] = useTransition();
@@ -127,7 +128,9 @@ export default function AddClientsDialog({ refreshData }) {
           status: "error",
         });
       } else {
-        console.log("Success! Signed up :", result);
+        // console.log("Success! Signed up :", result);
+        // Refresh the page
+        // window.location.reload();
         toast({
           title: "You submitted the following values:",
           description: (
@@ -139,10 +142,12 @@ export default function AddClientsDialog({ refreshData }) {
           ),
         });
         setOpen(false); // close the dialog
-        console.log(open);
+        // console.log(open);
+
+        // fetch data
+        props.getData();
 
         resetForm(); // clear the form
-        refreshData();
       }
 
       setLoading(false);

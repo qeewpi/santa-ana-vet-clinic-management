@@ -1,9 +1,9 @@
-import { getMembers } from "@/lib/supabase/members";
+import { getMembers } from "@/lib/supabase/member-service";
 import { useEffect, useState } from "react";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 
-export default function Clients({ role }) {
+export default function Clients() {
   const [data, setData] = useState([]);
 
   const getData = async () => {
@@ -20,6 +20,7 @@ export default function Clients({ role }) {
         }
       });
       setData(parsedMembers);
+      // console.log(parsedMembers);
     }
   };
 
@@ -32,7 +33,7 @@ export default function Clients({ role }) {
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
         Clients
       </h2>
-      <DataTable columns={columns} data={data} refreshData={getData} />
+      <DataTable columns={columns(getData)} data={data} getData={getData} />
     </div>
   );
 }

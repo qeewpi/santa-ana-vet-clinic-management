@@ -1,12 +1,4 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { z } from "zod";
-import { Input } from "@/components/ui/input";
-import { createMember } from "@/lib/supabase/members";
-import { Loader2 } from "lucide-react";
-import { useState, useTransition } from "react";
 import {
   Form,
   FormControl,
@@ -16,7 +8,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { createMember } from "@/lib/supabase/member-service";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 
 const formSchema = z.object({
   username: z
