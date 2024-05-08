@@ -7,6 +7,7 @@ import Clients from "../Clients/Clients";
 import Pets from "../Pets/Pets";
 import UserProfile from "../UserProfile/Profile";
 import Invoice from "../Invoice/invoice";
+import Service from "../Services/Services";
 
 export default function Dashboard() {
   let { page } = useParams();
@@ -48,6 +49,10 @@ export default function Dashboard() {
     case "clients":
       content = <Clients role={role} />;
       break;
+    case "services":
+      content = <Service />;
+      break;
+
     // Add more cases as needed.
     case "":
       content = "Default Page";
