@@ -124,6 +124,7 @@ export default function EditappointmentDialog({ id, getData, data }) {
       status: appointment?.status,
       veterinarian_id: appointment?.veterinarian_id,
       pet_id: appointment?.pet_id,
+      appointment_id: appointment?.id,
     },
   });
 
@@ -192,6 +193,25 @@ export default function EditappointmentDialog({ id, getData, data }) {
               className="space-y-3 border md:border-0 p-4 md:p-0 rounded-lg"
             >
               <div className="grid gap-y-2">
+                {" "}
+                <FormField
+                  control={form.control}
+                  name="appointment_id"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Appointment ID</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="View the ID of the appointment ID of this appointment"
+                          {...field}
+                          readOnly
+                          disabled
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="date"
@@ -262,7 +282,6 @@ export default function EditappointmentDialog({ id, getData, data }) {
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="reason_for_visit"
@@ -279,7 +298,6 @@ export default function EditappointmentDialog({ id, getData, data }) {
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="status"
@@ -306,7 +324,6 @@ export default function EditappointmentDialog({ id, getData, data }) {
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="pet_id"

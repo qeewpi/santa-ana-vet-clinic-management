@@ -31,27 +31,46 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { updateVeterinarian } from "@/lib/supabase/veterinarian-service";
+import { updateMedication } from "@/lib/supabase/medications-service";
 import { Edit, Loader2 } from "lucide-react";
 import React, { useState, useTransition } from "react";
 
 const formSchema = z.object({
-  first_name: z
+  name: z
     .string()
-    .min(2, { message: "Species must be at least 2 characters." })
-    .max(50, { message: "Species must be at most 50 characters." }),
-  last_name: z
+    .min(2, {
+      message: "Name must be at least 2 characters.",
+    })
+    .max(50, {
+      message: "Name must be at most 50 characters.",
+    }),
+  description: z
     .string()
-    .min(2, { message: "Breed must be at least 2 characters." })
-    .max(50, { message: "Breed must be at most 50 characters." }),
-  specialization: z
+    .min(2, {
+      message: "Description must be at least 2 characters.",
+    })
+    .max(50, {
+      message: "Description must be at most 50 characters.",
+    }),
+  unit_price: z
     .string()
-    .min(2, { message: "Color must be at least 2 characters." })
-    .max(50, { message: "Color must be at most 50 characters." })
-    .optional(),
+    .min(2, {
+      message: "Price must be at least 2 characters.",
+    })
+    .max(50, {
+      message: "Price must be at most 50 characters.",
+    }),
+  dosage_form: z
+    .string()
+    .min(2, {
+      message: "Price must be at least 2 characters.",
+    })
+    .max(50, {
+      message: "Price must be at most 50 characters.",
+    }),
 });
 
-export default function EditVeterinarianDialog({ id, getData, data }) {
+export default function EditMedicationsDialog({ id, getData, data }) {
   let navigate = useNavigate();
   // console.log(data);
   // console.log(id);
@@ -68,19 +87,19 @@ export default function EditVeterinarianDialog({ id, getData, data }) {
 
   // Find the user with the matching id
   // console.log(data);
-  const veterinarian = Array.isArray(data)
-    ? data.find((veterinarian) => veterinarian.id === id)
+  const medication = Array.isArray(data)
+    ? data.find((medication) => medication.id === id)
     : null;
-  // console.log(veterinarian);
+  // console.log(pet);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      veterinarianId: veterinarian?.id,
-      name: veterinarian?.name,
-      first_name: veterinarian?.first_name,
-      last_name: veterinarian?.last_name,
-      specialization: veterinarian?.specialization,
+      medicationId: medication.id,
+      name: medication.name,
+      description: medication.description,
+      unit_price: medication?.unit_price.toString(),
+      dosage_form: medication?.dosage_form,
     },
   });
 
@@ -90,13 +109,13 @@ export default function EditVeterinarianDialog({ id, getData, data }) {
     console.log(values);
 
     startTransition(async () => {
-      const result = await updateVeterinarian(id, values);
+      const result = await updateMedication(id, values);
       const parsedResult = JSON.parse(result);
 
       if (parsedResult.error) {
-        console.error("Error updating veterinarian:", parsedResult.error);
+        console.error("Error updating medication:", parsedResult.error);
         toast({
-          title: "Error updating veterinarian",
+          title: "Error updating medication",
           description: parsedResult.error,
           status: "error",
         });
@@ -138,9 +157,9 @@ export default function EditVeterinarianDialog({ id, getData, data }) {
       </TooltipProvider>
       <DialogContent className="max-w-[425px] lg:min-w-[750px]">
         <DialogHeader>
-          <DialogTitle>Edit Veterinarian</DialogTitle>
+          <DialogTitle>Edit Medication</DialogTitle>
           <DialogDescription>
-            Fill in the form below to edit a veterinarian's record.
+            Fill in the form below to edit a medication's record.
           </DialogDescription>
         </DialogHeader>
         <div className="">
@@ -149,19 +168,51 @@ export default function EditVeterinarianDialog({ id, getData, data }) {
               className="space-y-3 border md:border-0 p-4 md:p-0 rounded-lg"
               onSubmit={form.handleSubmit(onSubmit)}
             >
-              <div className="grid gap-2">
+              <div className="grid gap-y-2">
                 <FormField
                   control={form.control}
-                  name="veterinarianId"
+                  name="medicationId"
+                  disabled
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Veterinarian ID</FormLabel>
+                      <FormLabel>Medication ID</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Veterinarian ID"
+                          placeholder="Enter the medication's ID"
                           {...field}
-                          readOnly
-                          disabled
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter the name of the medication"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Description</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter the description of the medication"
+                          {...field}
                         />
                       </FormControl>
 
@@ -169,44 +220,16 @@ export default function EditVeterinarianDialog({ id, getData, data }) {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="first_name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>First Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter first name" {...field} />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
 
                 <FormField
                   control={form.control}
-                  name="last_name"
+                  name="unit_price"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Last Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter last name" {...field} />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="specialization"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Specialization</FormLabel>
+                      <FormLabel>Unit Price</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Enter Veterinarian's specialization"
+                          placeholder="Enter the unit price of the medication"
                           {...field}
                         />
                       </FormControl>
@@ -220,12 +243,12 @@ export default function EditVeterinarianDialog({ id, getData, data }) {
                 <div className="button-container pt-2">
                   {!loading ? (
                     <Button type="submit" className="w-full">
-                      Edit Client
+                      Edit Medication
                     </Button>
                   ) : (
                     <Button disabled className="w-full">
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Editing client...
+                      Editing medication...
                     </Button>
                   )}
                 </div>
