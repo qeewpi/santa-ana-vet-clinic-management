@@ -171,7 +171,11 @@ export default function ViewInvoiceDialog({ id, getData, data }) {
                     <FormItem>
                       <FormLabel>Appointment ID</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter Appointment ID" {...field} />
+                        <Input
+                          placeholder="Enter Appointment ID"
+                          {...field}
+                          readOnly
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -184,7 +188,11 @@ export default function ViewInvoiceDialog({ id, getData, data }) {
                     <FormItem>
                       <FormLabel>Member ID</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter Member ID" {...field} />
+                        <Input
+                          placeholder="Enter Member ID"
+                          {...field}
+                          readOnly
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -197,7 +205,11 @@ export default function ViewInvoiceDialog({ id, getData, data }) {
                     <FormItem>
                       <FormLabel>Total Amount</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter Total Amount" {...field} />
+                        <Input
+                          placeholder="Enter Total Amount"
+                          {...field}
+                          readOnly
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -210,7 +222,7 @@ export default function ViewInvoiceDialog({ id, getData, data }) {
                     <FormItem>
                       <FormLabel>Status</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter status" {...field} />
+                        <Input placeholder="Enter status" {...field} readOnly />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

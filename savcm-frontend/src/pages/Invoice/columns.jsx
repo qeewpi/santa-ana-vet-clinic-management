@@ -8,13 +8,13 @@ import ViewInvoiceDialog from "./ViewInvoiceDialog";
 
 export const columns = (getData, data, role) => [
   {
-    accessorKey: "invoice_id",
+    accessorKey: "id",
     header: ({ column }) => (
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        `` Invoice ID
+        Invoice ID
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),

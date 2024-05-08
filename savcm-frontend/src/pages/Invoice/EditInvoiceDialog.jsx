@@ -169,26 +169,17 @@ export default function EditInvoiceDialog({ id, getData, data }) {
               <div className="grid gap-y-2">
                 <FormField
                   control={form.control}
-                  name="memberId"
-                  disabled
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Member ID</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter the member's ID" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
                   name="appointment_id"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Appointment ID</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter Appointment ID" {...field} />
+                        <Input
+                          placeholder="Enter Appointment ID"
+                          {...field}
+                          readOnly
+                          disabled
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -201,7 +192,12 @@ export default function EditInvoiceDialog({ id, getData, data }) {
                     <FormItem>
                       <FormLabel>Member ID</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter Member ID" {...field} />
+                        <Input
+                          placeholder="Enter Member ID"
+                          {...field}
+                          readOnly
+                          disabled
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
