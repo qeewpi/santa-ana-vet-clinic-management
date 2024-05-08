@@ -14,7 +14,7 @@ import { CircleUserRound } from "lucide-react";
 
 export default function UserProfile() {
   return (
-    <div className="min-w-full min-h-screen px-[2rem] py-[1rem]">
+    <div className="min-w-full min-h-screen px-[2rem] py-[2rem]">
       <div className="flex m-10">
         <CircleUserRound className="w-12 h-12" />
       </div>
