@@ -92,7 +92,7 @@ export function SignUpForm() {
       } else {
         console.log("Success! Signed up with:", result);
         // toast notification
-        navigate("/verify-email");
+        navigate("/login");
       }
 
       setLoading(false);
