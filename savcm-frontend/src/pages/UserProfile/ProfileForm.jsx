@@ -1,12 +1,4 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { z } from "zod";
-import { Input } from "@/components/ui/input";
-import { createMember } from "@/lib/supabase/members";
-import { Loader2 } from "lucide-react";
-import { useState, useTransition } from "react";
 import {
   Form,
   FormControl,
@@ -15,8 +7,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
-
+import { Input } from "@/components/ui/input";
+import { createMember } from "@/lib/supabase/member-service";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 
 const formSchema = z.object({
   username: z
@@ -94,15 +91,14 @@ export function ProfileForm() {
         // toast notification
         navigate("/verify-email");
       }
-      
+
       setLoading(false);
     });
   }
 
   return (
     <div className="h-auto ">
-      
-        <Form {...form}>
+      <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-4 md:p-0 br-4 rounded-lg mx-4 my-4  md:rounded-xl md:overflow-hidden p-4"
@@ -112,7 +108,9 @@ export function ProfileForm() {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className ="text-semibold font-extrabold ">Username</FormLabel>
+                <FormLabel className="text-semibold font-extrabold ">
+                  Username
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="juandelacruz"
@@ -131,7 +129,9 @@ export function ProfileForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className ="text-semibold font-extrabold">Email</FormLabel>
+                <FormLabel className="text-semibold font-extrabold">
+                  Email
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="juandelacruz@example.com"
@@ -151,9 +151,11 @@ export function ProfileForm() {
               name="firstname"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className ="text-semibold font-extrabold">First Name</FormLabel>
+                  <FormLabel className="text-semibold font-extrabold">
+                    First Name
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="Juan" {...field} className="h-12"/>
+                    <Input placeholder="Juan" {...field} className="h-12" />
                   </FormControl>
 
                   <FormMessage />
@@ -165,9 +167,15 @@ export function ProfileForm() {
               name="lastname"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className ="text-semibold font-extrabold">Last Name</FormLabel>
+                  <FormLabel className="text-semibold font-extrabold">
+                    Last Name
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="Dela Cruz" {...field} className="h-12"/>
+                    <Input
+                      placeholder="Dela Cruz"
+                      {...field}
+                      className="h-12"
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -180,7 +188,7 @@ export function ProfileForm() {
             name="address"
             render={({ field }) => (
               <FormItem>
-                <FormLabel >Address</FormLabel>
+                <FormLabel>Address</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="123 Rizal St, Barangay, City, Philippines"
@@ -195,9 +203,6 @@ export function ProfileForm() {
           />
         </form>
       </Form>
-
-        
-      
     </div>
   );
 }

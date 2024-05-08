@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createMember } from "@/lib/supabase/members";
+import { createMember } from "@/lib/supabase/member-service";
 import { Loader2 } from "lucide-react";
 import { useState, useTransition } from "react";
 

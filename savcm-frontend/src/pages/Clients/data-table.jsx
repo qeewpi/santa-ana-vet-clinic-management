@@ -30,7 +30,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import AddClientsDialog from "./AddClientsDialog";
 
-export function DataTable({ columns, data, refreshData }) {
+export function DataTable({ columns, data, getData }) {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -94,7 +94,7 @@ export function DataTable({ columns, data, refreshData }) {
             </DropdownMenuContent>
           </DropdownMenu>
           <div className="button-div">
-            <AddClientsDialog refreshData={refreshData} />
+            <AddClientsDialog getData={getData} />
           </div>
         </div>
       </div>

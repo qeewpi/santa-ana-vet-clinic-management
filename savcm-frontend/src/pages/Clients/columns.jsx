@@ -1,12 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, Delete, Edit, Eye } from "lucide-react";
-import { handleDelete, handleEdit, handleView } from "./actions";
+import { ArrowUpDown, Edit, Eye } from "lucide-react";
+import { handleEdit, handleView } from "./actions";
+import DeleteButton from "./delete";
 
-export const columns = [
+export const columns = (getData) => [
   {
-    accessorKey: "id",
+    accessorKey: "member_id",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -105,8 +106,8 @@ export const columns = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const id = row.original.id;
-      console.log(id);
+      const id = row.original.member_id;
+      // console.log(id);
 
       return (
         <div className="flex flex-row gap-2">
@@ -122,12 +123,7 @@ export const columns = [
               handleEdit(id);
             }}
           />
-          <Delete
-            className="h-5 w-5"
-            onClick={() => {
-              handleDelete(id);
-            }}
-          />
+          <DeleteButton id={id} getData={getData}/>
         </div>
       );
     },

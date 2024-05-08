@@ -1,4 +1,5 @@
 import { createSupabaseAdmin, createSupabaseServerClient } from "./create";
+import { getUserSession } from "./session";
 
 export async function createMember(data) {
   const supabase = await createSupabaseAdmin();
@@ -25,6 +26,7 @@ export async function createMember(data) {
         last_name: data.lastname,
         address: data.address,
         specialization: data.specialization,
+        user_id: createResult.data.user?.id,
       },
     ]);
     if (memberResult.error) {
@@ -51,5 +53,31 @@ export async function getMembers() {
     return JSON.stringify(error);
   } else {
     return JSON.stringify(data);
+  }
+}
+
+export async function deleteMemberById(user_id) {
+  // get user session
+  const { role } = await getUserSession();
+  console.log(role);
+
+  // admin only
+  if (role !== "admin") {
+    return JSON.stringify({
+      error: "You are not authorized to perform this action",
+    });
+  }
+
+  // perform delete
+  const supabaseAdmin = await createSupabaseAdmin();
+
+  const deleteResult = await supabaseAdmin.auth.admin.deleteUser(user_id);
+
+  if (deleteResult?.error?.message) {
+    return JSON.stringify(deleteResult);
+  } else {
+    const supabase = await createSupabaseServerClient();
+    const result = await supabase.from("member").delete().eq("id", user_id);
+    return JSON.stringify(result);
   }
 }
