@@ -1,11 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, Delete, Edit, Eye } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
+import DeleteInvoice from "./DeleteInvoice";
+import EditInvoiceDialog from "./EditInvoiceDialog";
+import ViewInvoiceDialog from "./ViewInvoiceDialog";
 
-export const columns = [
+export const columns = (getData, data, role) => [
   {
-    accessorKey: "invoiceId",
+    accessorKey: "invoice_id",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -17,7 +20,7 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "appointmentId",
+    accessorKey: "appointment_id",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -29,7 +32,7 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "memberId",
+    accessorKey: "member_id",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -41,19 +44,7 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "date",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Date
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-  },
-  {
-    accessorKey: "totalAmount",
+    accessorKey: "total_amount",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -65,13 +56,13 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "paymentStatus",
+    accessorKey: "status",
     header: ({ column }) => (
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Payment Status
+        Status
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -80,11 +71,13 @@ export const columns = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
+      const id = row.original.id;
+
       return (
         <div className="flex flex-row gap-2">
-          <Eye className="h-5 w-5" />
-          <Edit className="h-5 w-5" />
-          <Delete className="h-5 w-5" />
+          <ViewInvoiceDialog id={id} data={data} />
+          <EditInvoiceDialog id={id} getData={getData} data={data} />
+          <DeleteInvoice id={id} getData={getData} />
         </div>
       );
     },
