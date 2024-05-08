@@ -64,7 +64,11 @@ export function PetDataTable({ columns, data, getData, role }) {
           }
           className="md:max-w-sm"
         />
-        <div className="grid md:grid-cols-2 w-full md:w-auto gap-2">
+        <div
+          className={`grid ${
+            role === "admin" ? "md:grid-cols-2" : ""
+          } w-full md:w-auto gap-2`}
+        >
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
