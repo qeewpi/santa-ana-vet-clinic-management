@@ -213,12 +213,12 @@ export default function AddInvoiceDialog(props) {
                 <div className="button-container pt-2">
                   {!loading ? (
                     <Button type="submit" className="w-full">
-                      Add Medication
+                      Add Invoice
                     </Button>
                   ) : (
                     <Button disabled className="w-full">
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Adding medication...
+                      Adding Invoice...
                     </Button>
                   )}
                 </div>
