@@ -37,6 +37,14 @@ import { format } from "date-fns";
 import { CalendarIcon, Loader2 } from "lucide-react";
 import React, { useState, useTransition } from "react";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 const formSchema = z.object({
   name: z
     .string()
@@ -292,9 +300,20 @@ export default function AddPetsDialog(props) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Gender</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter pet's gender" {...field} />
-                      </FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select the pet's gender" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="male">Male</SelectItem>
+                          <SelectItem value="female">Female</SelectItem>
+                        </SelectContent>
+                      </Select>
 
                       <FormMessage />
                     </FormItem>
