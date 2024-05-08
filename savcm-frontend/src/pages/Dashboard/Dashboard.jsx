@@ -9,6 +9,9 @@ import Pets from "../Pets/Pets";
 import Service from "../Services/Services";
 import UserProfile from "../UserProfile/Profile";
 
+import Medications from "../Medications/Medications";
+import Staff from "../Staff/Staff";
+import MedicalRecords from "../MedicalRecords/MedicalRecords";
 export default function Dashboard() {
   let { page } = useParams();
   let content;
@@ -34,20 +37,28 @@ export default function Dashboard() {
   }, [role]);
 
   switch (page) {
+    case "appointments":
+      content = <Appointments />;
+      break;
+    case "clients":
+      content = <Clients role={role} />;
+      break;
     case "invoice":
       content = <Invoice />;
       break;
-    case "profile":
-      content = <UserProfile />;
-      break;
-    case "appointments":
-      content = <Appointments />;
+    case "medications":
+      content = <Medications />;
       break;
     case "pets":
       content = <Pets />;
       break;
     case "members":
       content = <Clients role={role} />;
+    case "profile":
+      content = <UserProfile />;
+      break;
+    case "staff":
+      content = <Staff />;
       break;
     case "services":
       content = <Service />;
