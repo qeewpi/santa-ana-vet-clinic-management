@@ -2,42 +2,39 @@ import { useEffect, useState } from "react";
 import { columns } from "./staff-columns";
 import { StaffDataTable } from "./staff-data-table";
 import { Lasso } from "lucide-react";
-async function getData() {
-  // Fetch data from your API here.
-  return [
-    {
-      veterinarianId: "1",
-      firstName: "John",
-      lastName: "Doe",
-      specialization: "General Practice",
-    },
-    {
-      veterinarianId: "2",
-      firstName: "Jane",
-      lastName: "Smith",
-      specialization: "Dentistry",
-    },
-    {
-      veterinarianId: "3",
-      firstName: "Alice",
-      lastName: "Johnson",
-      specialization: "Surgery",
-    },
-
-    // ...
-  ];
-}
+import { getVeterinarians } from "@/lib/supabase/veterinarian-service";
 
 export default function Staff() {
   const [data, setData] = useState([]);
+
+  const getData = async () => {
+    const veterinarians = await getVeterinarians();
+    // only parse and set data when it returns a non-empty response
+    if (veterinarians && veterinarians !== "") {
+      const parsedVeterinarians = JSON.parse(veterinarians);
+      parsedVeterinarians.forEach((veterinarian) => {
+        if (veterinarian.birthdate && veterinarian.created_at) {
+          veterinarian.birthdate = new Date(
+            veterinarian.birthdate
+          ).toDateString();
+          veterinarian.created_at = new Date(
+            veterinarian.created_at
+          ).toDateString();
+        }
+      });
+      setData(parsedStaff);
+    }
+  };
+
   useEffect(() => {
-    getData().then((data) => setData(data));
+    // Call getData directly here, no need for async arrow function
+    getData();
   }, []);
 
   return (
     <div className="min-w-full px-[2rem] py-[2rem]">
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-        Staff
+        Veterinarian
       </h2>
       <StaffDataTable columns={columns} data={data} />
     </div>
