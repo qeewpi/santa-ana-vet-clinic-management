@@ -35,7 +35,7 @@ import { createPet } from "@/lib/supabase/pet-service";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon, Loader2 } from "lucide-react";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 
 import {
   Select,
@@ -44,6 +44,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getMembers } from "@/lib/supabase/member-service";
 
 const formSchema = z.object({
   name: z
@@ -90,6 +91,27 @@ export default function AddPetsDialog(props) {
   const resetForm = () => {
     form.reset();
   };
+
+  const [membersData, setMembersData] = useState([]);
+
+  const fetchMembersData = async () => {
+    const members = await getMembers();
+    if (members && members !== "") {
+      const parsedMembers = JSON.parse(members);
+      parsedMembers.forEach((member) => {
+        if (member.created_at) {
+          const date = new Date(member.created_at);
+          member.created_at = date.toDateString();
+        }
+      });
+      setMembersData(parsedMembers);
+    }
+  };
+
+  useEffect(() => {
+    fetchMembersData();
+    console.log("Members data:", membersData);
+  }, []);
 
   // 1. Define your form.
   const form = useForm({
@@ -179,6 +201,7 @@ export default function AddPetsDialog(props) {
               className="space-y-3 border md:border-0 p-4 md:p-0 rounded-lg"
             >
               <div className="grid gap-2">
+                {/*               
                 <FormField
                   control={form.control}
                   name="memberId"
@@ -191,6 +214,37 @@ export default function AddPetsDialog(props) {
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                /> */}
+
+                <FormField
+                  control={form.control}
+                  name="memberId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Member ID</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a member ID" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {membersData.map((member) => (
+                            <SelectItem
+                              key={member.member_id}
+                              value={member.member_id}
+                            >
+                              {member.member_id}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
