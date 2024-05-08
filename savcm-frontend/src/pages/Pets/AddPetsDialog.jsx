@@ -161,7 +161,7 @@ export default function AddPetsDialog(props) {
         <DialogHeader>
           <DialogTitle>Add Pet</DialogTitle>
           <DialogDescription>
-            Fill in the form below to add a new client.
+            Fill in the form below to add a new pet.
           </DialogDescription>
         </DialogHeader>
         <div className="">
@@ -178,7 +178,10 @@ export default function AddPetsDialog(props) {
                     <FormItem>
                       <FormLabel>Member ID</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter the member's ID" {...field} />
+                        <Input
+                          placeholder="Enter the member's ID which the pet belongs to"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -308,7 +311,7 @@ export default function AddPetsDialog(props) {
                   ) : (
                     <Button disabled className="w-full">
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Adding client...
+                      Adding pet...
                     </Button>
                   )}
                 </div>
