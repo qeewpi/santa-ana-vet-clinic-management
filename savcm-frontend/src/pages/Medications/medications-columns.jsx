@@ -5,7 +5,7 @@ import { ArrowUpDown, Delete, Edit, Eye } from "lucide-react";
 
 export const columns = [
   {
-    accessorKey: "Id",
+    accessorKey: "id",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -17,7 +17,7 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: "created_at",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -53,7 +53,7 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "unitPrice",
+    accessorKey: "unit_price",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -65,7 +65,7 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "dosageForm",
+    accessorKey: "dosage_form",
     header: ({ column }) => (
       <Button
         variant="ghost"

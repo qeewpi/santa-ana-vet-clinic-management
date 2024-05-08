@@ -1,10 +1,30 @@
 import { getAppointments } from "@/lib/supabase/appointment-service";
+import { getUserSession } from "@/lib/supabase/session";
 import React, { useEffect, useState } from "react";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 
 export default function Appointments() {
   const [data, setData] = useState([]);
+  const [role, setRole] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUserSession = async () => {
+      try {
+        const session = await getUserSession();
+        // console.log("User session:", session);
+        setRole(session.role);
+
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserSession();
+  }, []);
 
   const getData = async () => {
     // use function getMembers() from src/lib/supabase/members.jsx
@@ -35,9 +55,10 @@ export default function Appointments() {
         Appointments
       </h2>
       <DataTable
-        columns={columns(getData, data)}
+        columns={columns(getData, data, role)}
         data={data}
         getData={getData}
+        role={role}
       />
     </div>
   );

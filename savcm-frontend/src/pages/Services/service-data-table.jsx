@@ -28,9 +28,10 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-// import AddClientsDialog from "./AddClientsDialog";
+import AddServicesDialog from "./AddServicesDialog";
 
-export function ServiceDataTable({ columns, data, getData }) {
+export function ServiceDataTable({ columns, data, getData, role }) {
+  // console.log("Received data in PetDataTable:", data); // Add this line to log the received data
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -56,10 +57,10 @@ export function ServiceDataTable({ columns, data, getData }) {
     <div className="">
       <div className="flex flex-grow flex-col md:flex-grow-0 md:flex-row min-w-full md:flex items-center gap-2 py-4 justify-between">
         <Input
-          placeholder="Filter role..."
-          value={table.getColumn("role")?.getFilterValue() || ""}
+          placeholder="Filter name..."
+          value={table.getColumn("name")?.getFilterValue() || ""}
           onChange={(event) =>
-            table.getColumn("role")?.setFilterValue(event.target.value)
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="md:max-w-sm"
         />
@@ -94,7 +95,7 @@ export function ServiceDataTable({ columns, data, getData }) {
             </DropdownMenuContent>
           </DropdownMenu>
           <div className="button-div">
-            {/* <AddClientsDialog getData={getData} /> */}
+            <AddServicesDialog getData={getData} />
           </div>
         </div>
       </div>

@@ -45,7 +45,7 @@ function AuthListenerSignedIn() {
           location.pathname === "/email-verified" ||
           location.pathname === "/")
       ) {
-        navigate("/dashboard/pets");
+        navigate("/dashboard/profile");
       }
     });
   }, []);

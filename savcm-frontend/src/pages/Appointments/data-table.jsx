@@ -30,7 +30,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import AddAppointmentsDialog from "./AddAppointmentsDialog";
 
-export function DataTable({ columns, data, getData }) {
+export function DataTable({ columns, data, getData, role }) {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -63,7 +63,11 @@ export function DataTable({ columns, data, getData }) {
           }
           className="md:max-w-sm"
         />
-        <div className="grid md:grid-cols-2 w-full md:w-auto gap-2">
+        <div
+          className={`grid ${
+            role === "admin" ? "md:grid-cols-2" : ""
+          } w-full md:w-auto gap-2`}
+        >
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -93,9 +97,11 @@ export function DataTable({ columns, data, getData }) {
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-          <div className="button-div">
-            <AddAppointmentsDialog getData={getData} />
-          </div>
+          {role === "admin" && (
+            <div className="button-div">
+              <AddAppointmentsDialog getData={getData} />
+            </div>
+          )}
         </div>
       </div>
       <div className="rounded-md border">

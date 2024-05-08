@@ -33,7 +33,11 @@ export default function Services() {
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
         Services
       </h2>
-      <ServiceDataTable columns={columns} data={data} />
+      <ServiceDataTable
+        columns={columns(getData, data)}
+        data={data}
+        getData={getData}
+      />
     </div>
   );
 }

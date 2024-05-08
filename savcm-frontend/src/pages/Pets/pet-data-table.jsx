@@ -30,7 +30,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import AddPetsDialog from "./AddPetsDialog";
 
-export function PetDataTable({ columns, data, getData }) {
+export function PetDataTable({ columns, data, getData, role }) {
   // console.log("Received data in PetDataTable:", data); // Add this line to log the received data
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
@@ -64,7 +64,11 @@ export function PetDataTable({ columns, data, getData }) {
           }
           className="md:max-w-sm"
         />
-        <div className="grid md:grid-cols-2 w-full md:w-auto gap-2">
+        <div
+          className={`grid ${
+            role === "admin" ? "md:grid-cols-2" : ""
+          } w-full md:w-auto gap-2`}
+        >
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -94,9 +98,11 @@ export function PetDataTable({ columns, data, getData }) {
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-          <div className="button-div">
-            <AddPetsDialog getData={getData} />
-          </div>
+          {role === "admin" && (
+            <div className="button-div">
+              <AddPetsDialog getData={getData} />
+            </div>
+          )}
         </div>
       </div>
       <div className="rounded-md border">

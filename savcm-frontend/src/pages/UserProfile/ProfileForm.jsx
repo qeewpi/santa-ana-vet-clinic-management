@@ -60,7 +60,7 @@ export function ProfileForm({ userSession }) {
 
   const [loading, setLoading] = useState(false);
 
-  console.log(userSession);
+  // console.log(userSession);
 
   // 1. Define your form.
   const form = useForm({
