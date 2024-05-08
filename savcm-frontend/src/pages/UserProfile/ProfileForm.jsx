@@ -10,13 +10,13 @@ import { useState, useTransition } from "react";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
-
+import { Separator } from "@/components/ui/separator";
 
 const formSchema = z.object({
   username: z
@@ -94,32 +94,81 @@ export function ProfileForm() {
         // toast notification
         navigate("/verify-email");
       }
-      
+
       setLoading(false);
     });
   }
 
   return (
-    <div className="h-auto ">
-      
-        <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 md:p-0 br-4 rounded-lg mx-4 my-4  md:rounded-xl md:overflow-hidden p-4"
-        >
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full py-4 grid gap-6"
+      >
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem className="grid grid-cols-2 px-6 items-center">
+              <div className="form-description-container grid items-center">
+                <FormLabel className="text-semibold font-extrabold ">
+                  Username
+                </FormLabel>
+                <FormDescription>This is your unique username.</FormDescription>
+              </div>
+              <FormControl className="">
+                <Input
+                  placeholder="juandelacruz"
+                  {...field}
+                  autoComplete="username"
+                  className="h-12"
+                />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Separator />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem className="grid grid-cols-2 px-6 items-center">
+              <div className="form-description-container grid items-center">
+                <FormLabel className="text-semibold font-extrabold ">
+                  Email
+                </FormLabel>
+                <FormDescription> This is your email address.</FormDescription>
+              </div>
+              <FormControl className="">
+                <Input
+                  placeholder="juandelacruz@gmail.com"
+                  {...field}
+                  autoComplete="username"
+                  className="h-12"
+                />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Separator />
+        <div className=" gap-2">
           <FormField
             control={form.control}
-            name="username"
+            name="firstname"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel className ="text-semibold font-extrabold ">Username</FormLabel>
+              <FormItem className="grid grid-cols-2 px-6 items-center">
+                <div className="form-description-container grid items-center">
+                  <FormLabel className="text-semibold font-extrabold">
+                    First Name
+                  </FormLabel>
+                  <FormDescription> This is your first name.</FormDescription>
+                </div>
                 <FormControl>
-                  <Input
-                    placeholder="juandelacruz"
-                    {...field}
-                    autoComplete="username"
-                    className="h-12"
-                  />
+                  <Input placeholder="Juan" {...field} className="h-12" />
                 </FormControl>
 
                 <FormMessage />
@@ -128,76 +177,54 @@ export function ProfileForm() {
           />
           <FormField
             control={form.control}
-            name="email"
+            name="lastname"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel className ="text-semibold font-extrabold">Email</FormLabel>
+              <FormItem className="grid grid-cols-2 px-6 items-center">
+                <div className="form-description-container grid items-center">
+                  <FormLabel className="text-semibold font-extrabold">
+                    Last Name
+                  </FormLabel>
+                  <FormDescription> This is your last name.</FormDescription>
+                </div>
                 <FormControl>
-                  <Input
-                    placeholder="juandelacruz@example.com"
-                    {...field}
-                    type="email"
-                    className="h-12"
-                  />
+                  <Input placeholder="Dela Cruz" {...field} className="h-12" />
                 </FormControl>
 
                 <FormMessage />
               </FormItem>
             )}
           />
-          <div className="join-container flex flex-col md:grid md:grid-cols-2 gap-2">
-            <FormField
-              control={form.control}
-              name="firstname"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className ="text-semibold font-extrabold">First Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Juan" {...field} className="h-12"/>
-                  </FormControl>
+        </div>
+        <Separator />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem className="grid grid-cols-2 px-6 items-center">
+              <div className="form-description-container grid items-center">
+                <FormLabel className="text-semibold font-extrabold ">
+                  Address
+                </FormLabel>
+                <FormDescription>
+                  {" "}
+                  This is your current address.
+                </FormDescription>
+              </div>
+              <FormControl className="">
+                <Input
+                  placeholder="123 Rizal St, Barangay, City, Philippines"
+                  {...field}
+                  autoComplete="address"
+                  className="h-12"
+                />
+              </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastname"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className ="text-semibold font-extrabold">Last Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Dela Cruz" {...field} className="h-12"/>
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <FormField
-            control={form.control}
-            name="address"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel >Address</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="123 Rizal St, Barangay, City, Philippines"
-                    {...field}
-                    className="h-12"
-                  />
-                </FormControl>
-
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </form>
-      </Form>
-
-        
-      
-    </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Separator />
+      </form>
+    </Form>
   );
 }

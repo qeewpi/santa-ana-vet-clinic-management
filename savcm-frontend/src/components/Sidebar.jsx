@@ -59,7 +59,7 @@ const commands = {
     ],
     settings: [
       { icon: User, label: "Profile" },
-      { icon: CreditCard, label: "Billing" },
+      { icon: CreditCard, label: "Invoice" },
     ],
   },
   admin: {
@@ -84,7 +84,7 @@ const commands = {
     settings: [
       {
         icon: CreditCard,
-        label: "Billing",
+        label: "Invoice",
       },
       {
         icon: FileText,

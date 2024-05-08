@@ -3,37 +3,35 @@ import { columns } from "./columns";
 import { DataTable } from "./data-table";
 
 async function getData() {
-  // Fetch data from your API here.
   return [
     {
+      invoiceId: "1234",
       appointmentId: "A1234",
       memberId: "M001",
       date: "2024-03-15",
-      time: "10:00 AM",
-      reasonForVisit: "Wellness Checkup",
-      status: "Completed",
+      totalAmount: "$100.00",
+      paymentStatus: "Completed",
     },
     {
-      appointmentId: "B5678",
+      invoiceId: "1235",
+      appointmentId: "B1234",
       memberId: "M002",
-      date: "2024-03-18",
-      time: "1:30 PM",
-      reasonForVisit: "Vaccination Booster",
-      status: "Scheduled",
+      date: "2024-03-15",
+      totalAmount: "$100.00",
+      paymentStatus: "Completed",
     },
     {
-      appointmentId: "C9101",
+      invoiceId: "1236",
+      appointmentId: "C1234",
       memberId: "M003",
-      date: "2024-03-22",
-      time: "3:00 PM",
-      reasonForVisit: "Dental Cleaning",
-      status: "Pending",
+      date: "2024-03-15",
+      totalAmount: "$100.00",
+      paymentStatus: "Pending",
     },
-    // ...
   ];
 }
 
-export default function Appointments() {
+export default function Invoice() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -43,7 +41,7 @@ export default function Appointments() {
   return (
     <div className="min-w-full px-[2rem] py-[1rem]">
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-        Appointment
+        Invoice
       </h2>
       <DataTable columns={columns} data={data} />
     </div>
