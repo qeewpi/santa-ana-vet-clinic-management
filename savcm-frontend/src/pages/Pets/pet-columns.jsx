@@ -1,11 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, Delete, Edit, Eye } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
+import DeletePet from "./DeletePet";
+import EditPetDialog from "./EditPetDialog";
+import ViewPetsDialog from "./ViewPetsDialog";
 
-export const columns = [
+export const columns = (getData, data) => [
   {
-    accessorKey: "appointmentId",
+    accessorKey: "id",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -17,17 +20,18 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "memberId",
+    accessorKey: "created_at",
     header: ({ column }) => (
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Member
+        Created At
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
   },
+
   {
     accessorKey: "name",
     header: ({ column }) => (
@@ -89,16 +93,42 @@ export const columns = [
     ),
   },
   {
+    accessorKey: "gender",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Gender
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
+  {
+    accessorKey: "member_id",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Member
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
+  {
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const payment = row.original;
+      const id = row.original.id;
 
       return (
         <div className="flex flex-row gap-2">
-          <Eye className="h-5 w-5" />
-          <Edit className="h-5 w-5" />
-          <Delete className="h-5 w-5" />
+          <ViewPetsDialog id={id} data={data} />
+
+          <EditPetDialog id={id} getData={getData} data={data} />
+
+          <DeletePet id={id} getData={getData} />
         </div>
       );
     },

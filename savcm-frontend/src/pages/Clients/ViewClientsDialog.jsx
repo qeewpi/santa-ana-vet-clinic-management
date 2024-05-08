@@ -3,6 +3,13 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -79,7 +86,7 @@ const formSchema = z.object({
   specialization: z.string().optional(),
 });
 
-export default function ViewClientsDialog({ id, getData, data }) {
+export default function ViewClientsDialog({ id, data }) {
   let navigate = useNavigate();
 
   const [isPending, startTransition] = useTransition();
@@ -92,7 +99,9 @@ export default function ViewClientsDialog({ id, getData, data }) {
     form.reset();
   };
 
-  const user = data.find((user) => user.member.id === id);
+  const user = Array.isArray(data)
+    ? data.find((user) => user.member.id === id)
+    : null;
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -109,11 +118,20 @@ export default function ViewClientsDialog({ id, getData, data }) {
 
   return (
     <Dialog isOpen={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="smallerIcon">
-          <Eye className="h-4 w-4"></Eye>
-        </Button>
-      </DialogTrigger>
+      <TooltipProvider>
+        <Tooltip>
+          <DialogTrigger asChild>
+            <TooltipTrigger>
+              <Button variant="outline" size="smallerIcon">
+                <Eye className="h-4 w-4"></Eye>
+              </Button>
+            </TooltipTrigger>
+          </DialogTrigger>
+
+          <TooltipContent>View</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+
       <DialogContent className="max-w-[425px] lg:min-w-[750px]">
         <DialogHeader>
           <DialogTitle>View Client</DialogTitle>

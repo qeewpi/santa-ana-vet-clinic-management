@@ -1,33 +1,31 @@
+import { getServices } from "@/lib/supabase/services-service";
 import { useEffect, useState } from "react";
 import { columns } from "./service-columns";
 import { ServiceDataTable } from "./service-data-table";
-async function getData() {
-  // Fetch data from your API here.
-  return [
-    {
-      serviceId: "1",
-      name: "Consultation",
-      description: "Initial consultation",
-    },
-    {
-      serviceId: "2",
-      name: "Vaccination",
-      description: "Vaccination",
-    },
-    {
-      serviceId: "3",
-      name: "Surgery",
-      description: "Surgery",
-    },
-
-    // ...
-  ];
-}
 
 export default function Services() {
   const [data, setData] = useState([]);
+
+  const getData = async () => {
+    // use function getMembers() from src/lib/supabase/members.jsx
+    const services = await getServices();
+    // only parse and set data when it returns a non-empty response
+    if (services && services !== "") {
+      const parsedServices = JSON.parse(services);
+      // in each member object, convert the created_at field to a human-readable date
+      parsedServices.forEach((service) => {
+        if (service.created_at) {
+          const date = new Date(service.created_at);
+          service.created_at = date.toDateString();
+        }
+      });
+      setData(parsedServices);
+      // console.log(parsedMembers);
+    }
+  };
+
   useEffect(() => {
-    getData().then((data) => setData(data));
+    getData();
   }, []);
 
   return (

@@ -15,23 +15,23 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useToast } from "@/components/ui/use-toast";
-import { deleteMemberById } from "@/lib/supabase/member-service";
+import { deletePetById } from "@/lib/supabase/pet-service";
+import { TooltipTrigger } from "@radix-ui/react-tooltip";
 import { Delete } from "lucide-react";
 
-export default function DeleteButton({ id, getData }) {
+export default function DeletePet({ id, getData }) {
   const { toast } = useToast();
 
   async function handleDelete(id) {
     // console.log(id);
     toast({
-      title: "Deleting user",
-      description: `Please wait while we delete the user with id: ${id}`,
+      title: "Deleting pet record",
+      description: `Please wait while we delete the pet record with id: ${id}`,
     });
 
-    const result = await deleteMemberById(id);
+    const result = await deletePetById(id);
     const jsonResult = JSON.parse(result);
 
     if (jsonResult.error) {
@@ -45,7 +45,7 @@ export default function DeleteButton({ id, getData }) {
       toast({
         variant: "success",
         title: "Success!",
-        description: `Deleted client with id: ${id}`,
+        description: `Deleted pet record with id: ${id}`,
         // description: (
         //   <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
         //     <code className="text-white">`Deleted client with id: ${id}`</code>
@@ -80,7 +80,7 @@ export default function DeleteButton({ id, getData }) {
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete the
-              client's account and remove the data from our servers.
+              pet's record and remove the data from our servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
