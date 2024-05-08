@@ -22,7 +22,7 @@ export default function Staff() {
           ).toDateString();
         }
       });
-      setData(parsedStaff);
+      setData(parsedVeterinarians);
     }
   };
 

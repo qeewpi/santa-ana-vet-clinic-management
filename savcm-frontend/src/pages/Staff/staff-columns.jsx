@@ -5,19 +5,31 @@ import { ArrowUpDown, Delete, Edit, Eye } from "lucide-react";
 
 export const columns = [
   {
-    accessorKey: "veterinarianId",
+    accessorKey: "id",
     header: ({ column }) => (
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Veterinarian ID
+        ID
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
   },
   {
-    accessorKey: "firstName",
+    accessorKey: "created_at",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Created At
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
+  {
+    accessorKey: "first_name",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -29,7 +41,7 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "lastName",
+    accessorKey: "last_name",
     header: ({ column }) => (
       <Button
         variant="ghost"
