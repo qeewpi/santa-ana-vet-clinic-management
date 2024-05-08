@@ -42,11 +42,12 @@ import {
 
 import { supabase } from "@/lib/supabase/create";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 import LogoDarkImg from "../assets/images/logo-dark.png";
 import LogoImg from "../assets/images/logo.png";
 import { Button } from "./ui/button";
 import { useTheme } from "./ui/theme-provider";
+import { ToastAction } from "./ui/toast";
+import { useToast } from "./ui/use-toast";
 
 // Define the commands for each role
 const commands = {
@@ -105,19 +106,31 @@ export default function Sidebar({ role, session, isExpanded, setIsExpanded }) {
   const { setTheme } = useTheme();
   const theme = useTheme();
 
+  const { toast } = useToast();
+
   let navigate = useNavigate();
 
   const handleLogout = async () => {
-    toast("You have been logged out", {
-      description: "You can log back in at any time",
-      action: {
-        label: "Log In",
-        onClick: () => {
-          navigate("/login");
-        },
-      },
+    toast({
+      title: "You are being logged out.",
+      description: "Please wait while we log you out.",
+      action: (
+        <ToastAction onClick={() => navigate("/login")} altText="Log In">
+          Log In
+        </ToastAction>
+      ),
     });
     await supabase.auth.signOut();
+
+    toast({
+      title: "You have been logged out.",
+      description: "You can log back in at any time",
+      action: (
+        <ToastAction onClick={() => navigate("/login")} altText="Log In">
+          Log In
+        </ToastAction>
+      ),
+    });
   };
 
   const handleToggle = () => {
@@ -127,7 +140,7 @@ export default function Sidebar({ role, session, isExpanded, setIsExpanded }) {
 
   return (
     <div
-      className={`overflow-hidden transition-all fixed flex grow h-full border-r p-4 rounded-none text-left ${
+      className={`max-h-screen overflow-hidden transition-all fixed flex grow h-full border-r p-4 rounded-none text-left ${
         expanded ? "min-w-[300px] max-w-[300px]" : "min-w-[86px] max-w-[86px]"
       }`}
     >

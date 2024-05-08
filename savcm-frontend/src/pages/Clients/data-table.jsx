@@ -28,8 +28,9 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import AddClientsDialog from "./AddClientsDialog";
 
-export function DataTable({ columns, data }) {
+export function DataTable({ columns, data, refreshData }) {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -52,42 +53,50 @@ export function DataTable({ columns, data }) {
   });
 
   return (
-    <div>
-      <div className="flex items-center py-4">
+    <div className="">
+      <div className="flex flex-grow flex-col md:flex-grow-0 md:flex-row min-w-full md:flex items-center gap-2 py-4 justify-between">
         <Input
           placeholder="Filter status..."
           value={table.getColumn("status")?.getFilterValue() || ""}
           onChange={(event) =>
             table.getColumn("status")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="md:max-w-sm"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="grid md:grid-cols-2 w-full md:w-auto gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="ml-auto w-full md:w-auto overflow-hidden"
+              >
+                Columns
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <div className="button-div">
+            <AddClientsDialog refreshData={refreshData} />
+          </div>
+        </div>
       </div>
       <div className="rounded-md border">
         <Table>

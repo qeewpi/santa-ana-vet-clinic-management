@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, Delete, Edit, Eye } from "lucide-react";
+import { handleDelete, handleEdit, handleView } from "./actions";
 
 export const columns = [
   {
@@ -104,11 +105,29 @@ export const columns = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
+      const id = row.original.id;
+      console.log(id);
+
       return (
         <div className="flex flex-row gap-2">
-          <Eye className="h-5 w-5" />
-          <Edit className="h-5 w-5" />
-          <Delete className="h-5 w-5" />
+          <Eye
+            className="h-5 w-5"
+            onClick={() => {
+              handleView(id);
+            }}
+          />
+          <Edit
+            className="h-5 w-5"
+            onClick={() => {
+              handleEdit(id);
+            }}
+          />
+          <Delete
+            className="h-5 w-5"
+            onClick={() => {
+              handleDelete(id);
+            }}
+          />
         </div>
       );
     },

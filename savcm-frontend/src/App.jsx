@@ -1,6 +1,7 @@
 import "./App.css";
 
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/toaster";
+
 import { supabase } from "@/lib/supabase/create";
 import { useEffect } from "react";
 import {
@@ -36,7 +37,14 @@ function AuthListenerSignedIn() {
 
   useEffect(() => {
     supabase.auth.onAuthStateChange((_, session) => {
-      if (session) {
+      if (
+        session &&
+        (location.pathname === "/login" ||
+          location.pathname === "/sign-up" ||
+          location.pathname === "/verify-email" ||
+          location.pathname === "/email-verified" ||
+          location.pathname === "/")
+      ) {
         navigate("/dashboard");
       }
     });
