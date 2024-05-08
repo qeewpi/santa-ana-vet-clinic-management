@@ -51,6 +51,9 @@ export default function Dashboard() {
     case "pets":
       content = <Pets />;
       break;
+    case "my-pets":
+      content = <Pets />;
+      break;
     case "members":
       content = <Clients role={role} />;
       break;
