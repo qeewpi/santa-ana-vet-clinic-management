@@ -28,7 +28,7 @@ import { toast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
 import React, { useState, useTransition } from "react";
 
-import { createMedication } from "@/lib/supabase/medications-service";
+import { createInvoice } from "@/lib/supabase/invoice-service";
 
 const formSchema = z.object({
   appointment_id: z
@@ -42,7 +42,7 @@ const formSchema = z.object({
     .max(50, { message: "Member Id must be at most 50 characters." }),
 
   total_amount: z
-    .number()
+    .string()
     .min(0, { message: "Total amount must be at least 0." })
     .max(1000000, { message: "Total amount must be at most 1000000." }),
   status: z
@@ -80,7 +80,7 @@ export default function AddInvoiceDialog(props) {
     console.log("onSubmit called with values:", values);
     setLoading(true);
 
-    const medicationData = {
+    const invoiceData = {
       appointment_id: values.appointment_id,
       member_id: values.member_id,
       total_amount: values.total_amount,
@@ -88,14 +88,14 @@ export default function AddInvoiceDialog(props) {
     };
 
     startTransition(async () => {
-      const result = await createMedication(medicationData);
+      const result = await createInvoice(invoiceData);
       const parsedResult = JSON.parse(result);
 
       if (parsedResult.error) {
-        console.error("Error adding medication:", parsedResult.error);
+        console.error("Error adding invoice:", parsedResult.error);
         // toast notification
         toast({
-          title: "Error adding medication",
+          title: "Error adding invoice",
           description: parsedResult.error,
           status: "error",
         });
@@ -148,7 +148,7 @@ export default function AddInvoiceDialog(props) {
               <div className="grid gap-2">
                 <FormField
                   control={form.control}
-                  name="appointmentId"
+                  name="appointment_id"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Appointment ID</FormLabel>
@@ -165,7 +165,7 @@ export default function AddInvoiceDialog(props) {
 
                 <FormField
                   control={form.control}
-                  name="memberId"
+                  name="member_id"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Member ID</FormLabel>
@@ -179,7 +179,7 @@ export default function AddInvoiceDialog(props) {
 
                 <FormField
                   control={form.control}
-                  name="totalAmount"
+                  name="total_amount"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Total Amount</FormLabel>
