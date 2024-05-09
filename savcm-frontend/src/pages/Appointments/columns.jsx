@@ -154,6 +154,21 @@ export const columns = (getData, data, role) => {
       },
     });
   }
+  if (role === "user") {
+    baseColumns.push({
+      id: "actions",
+      header: "Actions",
+      cell: ({ row }) => {
+        const id = row.original.id;
+
+        return (
+          <div className="flex flex-row gap-2">
+            <ViewAppointmentDialog id={id} data={data} />
+          </div>
+        );
+      },
+    });
+  }
 
   return baseColumns;
 };

@@ -140,6 +140,35 @@ export const columns = (getData, data, role) => {
       }
     );
   }
+  if (role === "user") {
+    baseColumns.push(
+      {
+        accessorKey: "member_id",
+        header: ({ column }) => (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Member IDs
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        ),
+      },
+      {
+        id: "actions",
+        header: "Actions",
+        cell: ({ row }) => {
+          const id = row.original.id;
+
+          return (
+            <div className="flex flex-row gap-2">
+              <ViewPetsDialog id={id} data={data} />
+            </div>
+          );
+        },
+      }
+    );
+  }
 
   return baseColumns;
 };
