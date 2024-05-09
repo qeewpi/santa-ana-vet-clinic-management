@@ -35,7 +35,7 @@ import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon, Loader2 } from "lucide-react";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 
 import {
   Select,
@@ -45,6 +45,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { getPets } from "@/lib/supabase/pet-service";
+import { getVeterinarians } from "@/lib/supabase/veterinarian-service";
 import { createAppointment } from "../../lib/supabase/appointment-service";
 
 const formSchema = z.object({
@@ -81,6 +83,48 @@ export default function AddAppointmentsDialog(props) {
   const resetForm = () => {
     form.reset();
   };
+
+  const [petsData, setPetsData] = useState([]);
+
+  const fetchPetsData = async () => {
+    const pets = await getPets();
+    if (pets && pets !== "") {
+      const parsedPets = JSON.parse(pets);
+      parsedPets.forEach((pet) => {
+        if (pet.created_at) {
+          const date = new Date(pet.created_at);
+          pet.created_at = date.toDateString();
+        }
+      });
+      setPetsData(parsedPets);
+    }
+  };
+
+  useEffect(() => {
+    fetchPetsData(); // Call the function here
+    // console.log("Pets data:", petsData);
+  }, [petsData]);
+
+  const [vetsData, setVetsData] = useState([]);
+
+  const fetchVetsData = async () => {
+    const vets = await getVeterinarians();
+    if (vets && vets !== "") {
+      const parsedVets = JSON.parse(vets);
+      parsedVets.forEach((pet) => {
+        if (pet.created_at) {
+          const date = new Date(pet.created_at);
+          pet.created_at = date.toDateString();
+        }
+      });
+      setVetsData(parsedVets);
+    }
+  };
+
+  useEffect(() => {
+    fetchVetsData(); // Call the function here
+    // console.log("Pets data:", petsData);
+  }, [vetsData]);
 
   // 1. Define your form.
   const form = useForm({
@@ -300,12 +344,23 @@ export default function AddAppointmentsDialog(props) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Pet ID</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter the ID of the pet assigned to this appointment"
-                          {...field}
-                        />
-                      </FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a pet ID" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {petsData.map((pet) => (
+                            <SelectItem key={pet.id} value={pet.id}>
+                              {pet.id}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -316,12 +371,23 @@ export default function AddAppointmentsDialog(props) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Veterinarian ID</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter the ID of the veterinarian assigned to this appointment"
-                          {...field}
-                        />
-                      </FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a veterinarian ID" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {vetsData.map((vet) => (
+                            <SelectItem key={vet.id} value={vet.id}>
+                              {vet.id}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}

@@ -8,7 +8,7 @@ export default function LoginPage() {
       <div className="w-full md:w-1/2">
         <LoginLeftSide />
       </div>
-      <div className="relative md:block md:w-1/2">
+      <div className="relative hidden md:block md:w-1/2">
         <LoginRightSide />
       </div>
     </div>
