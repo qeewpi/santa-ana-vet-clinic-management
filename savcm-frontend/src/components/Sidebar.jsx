@@ -54,10 +54,7 @@ const commands = {
       { icon: PawPrint, label: "My Pets" },
       { icon: Calendar, label: "Appointments" },
     ],
-    settings: [
-      { icon: User, label: "Profile" },
-      { icon: CreditCard, label: "Invoice" },
-    ],
+    settings: [{ icon: User, label: "Profile" }],
   },
   admin: {
     mainMenu: [

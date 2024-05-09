@@ -120,11 +120,11 @@ export default function ViewAppointmentDialog({ id, data }) {
           <TooltipContent>View</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <DialogContent className="max-w-[425px] lg:min-w-[750px]">
+      <DialogContent className="md:max-w-[425px] lg:min-w-[750px]">
         <DialogHeader>
-          <DialogTitle>Add Appointment</DialogTitle>
+          <DialogTitle>View Appointment</DialogTitle>
           <DialogDescription>
-            Fill in the form below to add a new appointment.
+            Fill in the form below to view an appointment.
           </DialogDescription>
         </DialogHeader>
         <div className="">
