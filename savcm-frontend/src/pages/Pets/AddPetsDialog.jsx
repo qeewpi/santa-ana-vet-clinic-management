@@ -187,7 +187,7 @@ export default function AddPetsDialog(props) {
           Add Pet
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[425px] lg:min-w-[750px]">
+      <DialogContent className="max-h-[750px]">
         <DialogHeader>
           <DialogTitle>Add Pet</DialogTitle>
           <DialogDescription>

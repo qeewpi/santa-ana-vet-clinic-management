@@ -107,7 +107,7 @@ export default function ViewPetsDialog({ id, data }) {
         </Tooltip>
       </TooltipProvider>
 
-      <DialogContent className="max-w-[425px] lg:min-w-[750px]">
+      <DialogContent className="max-h-[750px]">
         <DialogHeader>
           <DialogTitle>View Pet</DialogTitle>
           <DialogDescription>View the pet's record below.</DialogDescription>

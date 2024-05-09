@@ -8,7 +8,7 @@ function Logo() {
 
   return (
     <div className="flex flex-row items-center gap-2">
-      <Link to="/">
+      <Link to="/dashboard/profile">
         {theme.theme === "light" ? (
           <img src={LogoImg} alt="Logo" className="w-40 md:w-48" />
         ) : (

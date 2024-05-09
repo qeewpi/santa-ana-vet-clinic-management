@@ -172,7 +172,7 @@ export default function EditPetDialog({ id, getData, data }) {
           <TooltipContent>Edit</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <DialogContent className="max-w-[425px] lg:min-w-[750px]">
+      <DialogContent className="max-h-[750px]">
         <DialogHeader>
           <DialogTitle>Edit Pet</DialogTitle>
           <DialogDescription>

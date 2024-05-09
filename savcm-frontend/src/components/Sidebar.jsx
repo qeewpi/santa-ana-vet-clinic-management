@@ -139,7 +139,7 @@ export default function Sidebar({ role, session, isExpanded, setIsExpanded }) {
                 expanded ? "justify-between" : "justify-center"
               }`}
             >
-              <Link to="/dashboard">
+              <Link to="/dashboard/profile">
                 {theme.theme === "light" ? (
                   <img
                     src={LogoImg}
